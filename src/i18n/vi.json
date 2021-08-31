@@ -1,0 +1,14 @@
+{
+  "defaults": {
+    "admin": "Quản trị viên"
+  },
+  "drawer": {
+    "language": "Ngôn ngữ"
+  },
+  "pages": {
+    "dashboard": "Màn hình chính",
+    "help": "Trợ giúp"
+  },
+  "title": "ICU Nhắc Nhở",
+  "welcome": "Chào mừng"
+}

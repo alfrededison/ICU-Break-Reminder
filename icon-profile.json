@@ -1,0 +1,14 @@
+{
+  "params": {
+    "icon": "./src/assets/icon.png",
+    "include": [
+      "all"
+    ],
+    "quality": 7,
+    "themeColor": "2d6bdd",
+    "skipTrim": true,
+    "splashscreenColor": "2d6bdd",
+    "svgColor": "2d6bdd"
+  },
+  "assets": []
+}

@@ -6,7 +6,7 @@
 // Configuration for your app
 // https://v1.quasar.dev/quasar-cli/quasar-conf-js
 /* eslint-env node */
-const ESLintPlugin = require('eslint-webpack-plugin')
+const ESLintPlugin = require('eslint-webpack-plugin');
 
 module.exports = function (/* ctx */) {
   return {
@@ -20,8 +20,8 @@ module.exports = function (/* ctx */) {
     // --> boot files are part of "main.js"
     // https://v1.quasar.dev/quasar-cli/boot-files
     boot: [
-      
       'i18n',
+      'quasar-lang-pack',
       'axios',
     ],
 
@@ -66,9 +66,9 @@ module.exports = function (/* ctx */) {
 
       // https://v1.quasar.dev/quasar-cli/handling-webpack
       // "chain" is a webpack-chain object https://github.com/neutrinojs/webpack-chain
-      chainWebpack (chain) {
+      chainWebpack(chain) {
         chain.plugin('eslint-webpack-plugin')
-          .use(ESLintPlugin, [{ extensions: [ 'js', 'vue' ] }])
+          .use(ESLintPlugin, [{extensions: ['js', 'vue']}]);
       },
     },
 
@@ -98,7 +98,10 @@ module.exports = function (/* ctx */) {
       // directives: [],
 
       // Quasar plugins
-      plugins: []
+      plugins: [
+        'Dialog',
+        'Notify',
+      ]
     },
 
     // animations: 'all', // --- includes all animations
@@ -107,7 +110,7 @@ module.exports = function (/* ctx */) {
 
     // https://v1.quasar.dev/quasar-cli/developing-ssr/configuring-ssr
     ssr: {
-      pwa: false
+      pwa: true
     },
 
     // https://v1.quasar.dev/quasar-cli/developing-pwa/configuring-pwa
@@ -115,13 +118,13 @@ module.exports = function (/* ctx */) {
       workboxPluginMode: 'GenerateSW', // 'GenerateSW' or 'InjectManifest'
       workboxOptions: {}, // only for GenerateSW
       manifest: {
-        name: `Inventory Manager`,
-        short_name: `Inventory Manager`,
-        description: `A cross-platform inventory manager`,
+        name: `ICU Break Reminder`,
+        short_name: `icu-break-reminder`,
+        description: `A friendly reminder to avoid Repetitive Strain Injury`,
         display: 'standalone',
         orientation: 'portrait',
         background_color: '#ffffff',
-        theme_color: '#027be3',
+        theme_color: '#dd7f2d',
         icons: [
           {
             src: 'icons/icon-128x128.png',
@@ -149,7 +152,18 @@ module.exports = function (/* ctx */) {
             type: 'image/png'
           }
         ]
-      }
+      },
+      metaVariables: {
+        appleMobileWebAppCapable: 'yes',
+        appleMobileWebAppStatusBarStyle: 'default',
+        appleTouchIcon120: 'icons/apple-icon-120x120.png',
+        appleTouchIcon152: 'icons/apple-icon-152x152.png',
+        appleTouchIcon167: 'icons/apple-icon-167x167.png',
+        appleTouchIcon180: 'icons/apple-icon-180x180.png',
+        appleSafariPinnedTab: 'icons/safari-pinned-tab.svg',
+        msapplicationTileImage: 'icons/ms-icon-144x144.png',
+        msapplicationTileColor: '#dd7f2d'
+      },
     },
 
     // Full list of options: https://v1.quasar.dev/quasar-cli/developing-cordova-apps/configuring-cordova
@@ -182,16 +196,16 @@ module.exports = function (/* ctx */) {
       builder: {
         // https://www.electron.build/configuration/configuration
 
-        appId: 'inventory-manager'
+        appId: 'icu-break-reminder'
       },
 
       // More info: https://v1.quasar.dev/quasar-cli/developing-electron-apps/node-integration
       nodeIntegration: true,
 
-      extendWebpack (/* cfg */) {
+      extendWebpack(/* cfg */) {
         // do something with Electron main process Webpack cfg
         // chainWebpack also available besides this extendWebpack
       }
     }
-  }
-}
+  };
+};

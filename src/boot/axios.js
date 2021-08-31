@@ -1,4 +1,4 @@
-import Vue from 'vue'
-import axios from 'axios'
+import axios from 'axios';
+import Vue from 'vue';
 
-Vue.prototype.$axios = axios
+Vue.prototype.$axios = axios;

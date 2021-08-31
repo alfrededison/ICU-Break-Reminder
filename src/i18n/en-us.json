@@ -1,0 +1,14 @@
+{
+  "defaults": {
+    "admin": "Administrator"
+  },
+  "drawer": {
+    "language": "Language"
+  },
+  "pages": {
+    "dashboard": "Dashboard",
+    "help": "Help"
+  },
+  "title": "ICU Break Reminder",
+  "welcome": "Welcome"
+}

@@ -1,107 +1,91 @@
 <template>
   <q-layout view="lHh Lpr lFf">
-    <q-header elevated>
+    <q-header>
       <q-toolbar>
         <q-btn
-          flat
-          dense
-          round
-          icon="menu"
           aria-label="Menu"
+          dense
+          flat
+          icon="menu"
+          round
           @click="leftDrawerOpen = !leftDrawerOpen"
         />
-
-        <q-toolbar-title>
-          Quasar App
-        </q-toolbar-title>
-
-        <div>Quasar v{{ $q.version }}</div>
       </q-toolbar>
+      <div class="q-px-lg q-pt-xl q-mb-md">
+        <div class="text-h3">{{ $t('title') }}</div>
+        <div class="text-subtitle1">{{ this.todayDate }}</div>
+      </div>
+      <q-img class="IM__header-image absolute-top" src="~assets/images/cover.jpg"/>
     </q-header>
 
     <q-drawer
       v-model="leftDrawerOpen"
+      :breakpoint="600"
+      :width="250"
       show-if-above
-      bordered
-      content-class="bg-grey-1"
     >
-      <q-list>
-        <q-item-label
-          header
-          class="text-grey-8"
-        >
-          Essential Links
-        </q-item-label>
-        <EssentialLink
-          v-for="link in essentialLinks"
-          :key="link.title"
-          v-bind="link"
-        />
-      </q-list>
+      <q-scroll-area style="height: calc(100% - 192px); margin-top: 192px; border-right: 1px solid #ddd">
+        <Menu/>
+      </q-scroll-area>
+
+      <q-img class="absolute-top" src="~assets/images/cover.jpg" style="height: 192px">
+        <div class="absolute-bottom bg-transparent">
+          <q-avatar class="q-mb-sm" size="56px">
+            <q-img class="IM__menu-avatar" src="~assets/icon.png"/>
+          </q-avatar>
+          <div class="text-weight-bold IM__text-shadowed">{{ $t('defaults.admin') }}</div>
+          <div class="IM__text-shadowed">@admin</div>
+        </div>
+      </q-img>
     </q-drawer>
 
     <q-page-container>
-      <router-view />
+      <keep-alive>
+        <router-view/>
+      </keep-alive>
     </q-page-container>
   </q-layout>
 </template>
 
 <script>
-import EssentialLink from 'components/EssentialLink.vue'
-
-const linksData = [
-  {
-    title: 'Docs',
-    caption: 'quasar.dev',
-    icon: 'school',
-    link: 'https://quasar.dev'
-  },
-  {
-    title: 'Github',
-    caption: 'github.com/quasarframework',
-    icon: 'code',
-    link: 'https://github.com/quasarframework'
-  },
-  {
-    title: 'Discord Chat Channel',
-    caption: 'chat.quasar.dev',
-    icon: 'chat',
-    link: 'https://chat.quasar.dev'
-  },
-  {
-    title: 'Forum',
-    caption: 'forum.quasar.dev',
-    icon: 'record_voice_over',
-    link: 'https://forum.quasar.dev'
-  },
-  {
-    title: 'Twitter',
-    caption: '@quasarframework',
-    icon: 'rss_feed',
-    link: 'https://twitter.quasar.dev'
-  },
-  {
-    title: 'Facebook',
-    caption: '@QuasarFramework',
-    icon: 'public',
-    link: 'https://facebook.quasar.dev'
-  },
-  {
-    title: 'Quasar Awesome',
-    caption: 'Community Quasar projects',
-    icon: 'favorite',
-    link: 'https://awesome.quasar.dev'
-  }
-];
+import {date} from 'quasar';
+import Menu from 'components/Menu';
 
 export default {
-  name: 'MainLayout',
-  components: { EssentialLink },
-  data () {
+  name: 'HomeLayout',
+  data() {
     return {
       leftDrawerOpen: false,
-      essentialLinks: linksData
+    };
+  },
+  components: {
+    Menu,
+  },
+  computed: {
+    todayDate() {
+      this.$q.lang; // a hack for force rerender component when quasar lang pack changed
+      let timestamp = Date.now();
+      return date.formatDate(timestamp, 'dddd, D MMMM YYYY');
     }
+  },
+};
+</script>
+
+<style lang="scss">
+.IM {
+  &__header-image {
+    height: 100%;
+    z-index: -1;
+    opacity: 0.2;
+    filter: grayscale(100%)
+  }
+
+  &__menu-avatar {
+    background-color: $primary;
+  }
+
+  &__text-shadowed {
+    text-shadow: 0 0 5px $primary, 0 0 7px $accent;
   }
 }
-</script>
+</style>
