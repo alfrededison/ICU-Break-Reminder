@@ -23,6 +23,7 @@ module.exports = function (/* ctx */) {
       'i18n',
       'quasar-lang-pack',
       'axios',
+      'lodash',
     ],
 
     // https://v1.quasar.dev/quasar-cli/quasar-conf-js#Property%3A-css
