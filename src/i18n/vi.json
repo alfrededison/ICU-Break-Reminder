@@ -16,6 +16,8 @@
     "estimated_fps": "FPS ước tính",
     "min_confidence": "Độ chính xác tối thiểu",
     "input_size": "Kích thước đầu vào",
-    "score_threshold": "Ngưỡng điểm"
+    "score_threshold": "Ngưỡng điểm",
+    "stop": "Dừng Camera",
+    "play": "Phát Camera"
   }
 }

@@ -16,6 +16,8 @@
     "estimated_fps": "Estimated FPS",
     "min_confidence": "Min Confidence",
     "input_size": "Input Size",
-    "score_threshold": "Score Threshold"
+    "score_threshold": "Score Threshold",
+    "stop": "Stop Camera",
+    "play": "Start Camera"
   }
 }

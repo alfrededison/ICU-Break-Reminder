@@ -4,15 +4,20 @@
     <div class="q-gutter-md">
       <div class="row">
         <div class="col">
+          <q-btn color="primary" :label="playPauseLabel" @click="playPause" />
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
           <div>
             <video
               onloadedmetadata="onPlay(this)"
-              id="inputVideo"
+              ref="inputVideo"
               autoplay
               muted
               playsinline
             ></video>
-            <canvas id="overlay" />
+            <canvas ref="overlay" />
           </div>
         </div>
       </div>
@@ -97,6 +102,9 @@ export default {
       SSD_MOBILENETV1: SSD_MOBILENETV1,
       TINY_FACE_DETECTOR: TINY_FACE_DETECTOR,
 
+      isPlaying: false,
+      stream: null,
+
       selectFaceDetector: null,
       selectFaceDetectorOptions: [
         { label: "SSD Mobilenet V1", value: SSD_MOBILENETV1 },
@@ -118,15 +126,45 @@ export default {
       fps: "-",
     };
   },
+  computed: {
+    playPauseLabel() {
+      return this.isPlaying ? this.$t("configs.stop") : this.$t("configs.play");
+    },
+  },
   methods: {
     detectorMode(val) {
       return this.selectFaceDetector === val;
+    },
+    playPause() {
+      this.isPlaying = !this.isPlaying;
+
+      if (this.isPlaying) {
+        this.displayCamera().then();
+      } else {
+        this.turnOffCamera().then();
+      }
+    },
+    async displayCamera() {
+      if (this.stream) {
+        await this.turnOffCamera();
+      }
+      const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+      this.stream = stream;
+      const videoEl = this.$refs.inputVideo;
+      videoEl.srcObject = stream;
+    },
+    async turnOffCamera() {
+      if (this.stream) {
+        this.stream.getVideoTracks()[0].stop();
+      }
+      const videoEl = this.$refs.inputVideo;
+      videoEl.srcObject = null;
     },
   },
   mounted() {
     this.selectFaceDetector = TINY_FACE_DETECTOR;
     this.selectInputSize = 128;
-  }
+  },
 };
 </script>
 
