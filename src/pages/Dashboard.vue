@@ -9,15 +9,15 @@
       </div>
       <div class="row">
         <div class="col">
-          <div>
+          <div class="camera-container">
             <video
-              onloadedmetadata="onPlay(this)"
+              @loadedmetadata="onPlay"
               ref="inputVideo"
               autoplay
               muted
               playsinline
             ></video>
-            <canvas ref="overlay" />
+            <canvas ref="overlay" class="overlay" />
           </div>
         </div>
       </div>
@@ -27,7 +27,7 @@
             emit-value
             map-options
             outlined
-            v-model="selectFaceDetector"
+            v-model="selectedFaceDetector"
             :options="selectFaceDetectorOptions"
             :label="$t('configs.select_face_detector')"
           />
@@ -68,7 +68,7 @@
             emit-value
             map-options
             outlined
-            v-model="selectInputSize"
+            v-model="selectedInputSize"
             :options="selectInputSizeOptions"
             :label="$t('configs.input_size')"
           />
@@ -92,6 +92,8 @@
 </template>
 
 <script>
+import * as faceapi from "face-api.js";
+
 const SSD_MOBILENETV1 = "ssd_mobilenetv1";
 const TINY_FACE_DETECTOR = "tiny_face_detector";
 
@@ -105,13 +107,13 @@ export default {
       isPlaying: false,
       stream: null,
 
-      selectFaceDetector: null,
+      selectedFaceDetector: "",
       selectFaceDetectorOptions: [
         { label: "SSD Mobilenet V1", value: SSD_MOBILENETV1 },
         { label: "Tiny Face Detector", value: TINY_FACE_DETECTOR },
       ],
       minConfidence: 0.5,
-      selectInputSize: "",
+      selectedInputSize: "",
       selectInputSizeOptions: [
         { value: 128, label: "128 x 128" },
         { value: 160, label: "160 x 160" },
@@ -131,9 +133,16 @@ export default {
       return this.isPlaying ? this.$t("configs.stop") : this.$t("configs.play");
     },
   },
+  watch: {
+    selectedFaceDetector: function (val) {
+      if (!this.isFaceDetectionModelLoaded()) {
+        this.getCurrentFaceDetectionNet().load("/weights").then();
+      }
+    },
+  },
   methods: {
     detectorMode(val) {
-      return this.selectFaceDetector === val;
+      return this.selectedFaceDetector === val;
     },
     playPause() {
       this.isPlaying = !this.isPlaying;
@@ -160,13 +169,78 @@ export default {
       const videoEl = this.$refs.inputVideo;
       videoEl.srcObject = null;
     },
+    getFaceDetectorOptions() {
+      switch (this.selectedFaceDetector) {
+        case SSD_MOBILENETV1:
+          return new faceapi.SsdMobilenetv1Options({
+            minConfidence: this.minConfidence,
+          });
+        case TINY_FACE_DETECTOR:
+          return new faceapi.TinyFaceDetectorOptions({
+            inputSize: this.selectedInputSize,
+            scoreThreshold: this.scoreThreshold,
+          });
+      }
+    },
+    getCurrentFaceDetectionNet() {
+      switch (this.selectedFaceDetector) {
+        case SSD_MOBILENETV1:
+          return faceapi.nets.ssdMobilenetv1;
+        case TINY_FACE_DETECTOR:
+          return faceapi.nets.tinyFaceDetector;
+      }
+    },
+    isFaceDetectionModelLoaded() {
+      return !!this.getCurrentFaceDetectionNet().params;
+    },
+    updateTimeStats(timeInMs) {
+      let forwardTimes = [];
+      forwardTimes = [timeInMs].concat(forwardTimes).slice(0, 30);
+      const avgTimeInMs =
+        forwardTimes.reduce((total, t) => total + t) / forwardTimes.length;
+      this.time = `${Math.round(avgTimeInMs)} ms`;
+      this.fps = `${faceapi.utils.round(1000 / avgTimeInMs)}`;
+    },
+    async onPlay() {
+      const videoEl = this.$refs.inputVideo;
+
+      if (videoEl.paused || videoEl.ended || !this.isFaceDetectionModelLoaded())
+        return setTimeout(() => this.onPlay());
+
+      const options = this.getFaceDetectorOptions();
+
+      const ts = Date.now();
+
+      const result = await faceapi.detectSingleFace(videoEl, options);
+
+      this.updateTimeStats(Date.now() - ts);
+
+      if (result) {
+        const canvas = this.$refs.overlay;
+        const dims = faceapi.matchDimensions(canvas, videoEl, true);
+        faceapi.draw.drawDetections(
+          canvas,
+          faceapi.resizeResults(result, dims)
+        );
+      }
+
+      setTimeout(() => this.onPlay());
+    },
   },
   mounted() {
-    this.selectFaceDetector = TINY_FACE_DETECTOR;
-    this.selectInputSize = 128;
+    this.selectedFaceDetector = TINY_FACE_DETECTOR;
+    this.selectedInputSize = 128;
   },
 };
 </script>
 
 <style scoped lang="scss">
+.camera-container {
+  position: relative;
+}
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
 </style>
