@@ -10,5 +10,12 @@
     "help": "Trợ giúp"
   },
   "title": "ICU Nhắc Nhở",
-  "welcome": "Chào mừng"
+  "configs": {
+    "select_face_detector": "Chọn Face Detector",
+    "time": "Thời gian",
+    "estimated_fps": "FPS ước tính",
+    "min_confidence": "Độ chính xác tối thiểu",
+    "input_size": "Kích thước đầu vào",
+    "score_threshold": "Ngưỡng điểm"
+  }
 }

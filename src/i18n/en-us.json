@@ -10,5 +10,12 @@
     "help": "Help"
   },
   "title": "ICU Break Reminder",
-  "welcome": "Welcome"
+  "configs": {
+    "select_face_detector": "Select Face Detector",
+    "time": "Time",
+    "estimated_fps": "Estimated FPS",
+    "min_confidence": "Min Confidence",
+    "input_size": "Input Size",
+    "score_threshold": "Score Threshold"
+  }
 }
