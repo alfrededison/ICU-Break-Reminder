@@ -14,10 +14,12 @@
           <q-btn color="primary" :label="playPauseLabel" @click="playPause" />
         </div>
       </div>
-      <div class="row">
+      <div :class="{ hidden: !isPlaying, row: true }">
         <div class="col">
           <div class="camera-container">
             <video
+              width="480"
+              height="360"
               @loadedmetadata="onPlay"
               ref="inputVideo"
               autoplay
@@ -282,7 +284,7 @@ export default {
 
       if (result) {
         const canvas = this.$refs.overlay;
-        const dims = faceapi.matchDimensions(canvas, videoEl, true);
+        const dims = faceapi.matchDimensions(canvas, videoEl, false);
         faceapi.draw.drawDetections(
           canvas,
           faceapi.resizeResults(result, dims)
