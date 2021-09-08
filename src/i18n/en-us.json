@@ -18,6 +18,16 @@
     "input_size": "Input Size",
     "score_threshold": "Score Threshold",
     "stop": "Stop Camera",
-    "play": "Start Camera"
+    "play": "Start Camera",
+    "time_between_breaks": "Time Between Breaks",
+    "break_duration": "Break Duration",
+    "time_between_checks": "Time Between Checks",
+    "notify_before": "Notify Before",
+    "full_duration_format": "Duration format: hh:mm:ss",
+    "compact_duration_format": "Duration format: m:ss"
+  },
+  "config_group": {
+    "camera_configs": "Camera Configs",
+    "break_configs": "Break Configs"
   }
 }

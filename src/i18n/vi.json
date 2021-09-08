@@ -18,6 +18,16 @@
     "input_size": "Kích thước đầu vào",
     "score_threshold": "Ngưỡng điểm",
     "stop": "Dừng Camera",
-    "play": "Phát Camera"
+    "play": "Phát Camera",
+    "time_between_breaks": "Thời gian giữa các lần nghỉ",
+    "break_duration": "Thời gian nghỉ",
+    "full_duration_format": "Định dạng: hh:mm:ss",
+    "compact_duration_format": "Định dạng: m:ss",
+    "time_between_checks": "Thời gian giữa các lần kiểm tra",
+    "notify_before": "Thông báo trước"
+  },
+  "config_group": {
+    "camera_configs": "Thiết lập Camera",
+    "break_configs": "Thiết lập nghỉ ngơi"
   }
 }

@@ -4,6 +4,13 @@
     <div class="q-gutter-md">
       <div class="row">
         <div class="col">
+          <div class="text-h5 text-primary">
+            {{ $t("config_group.camera_configs") }}
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
           <q-btn color="primary" :label="playPauseLabel" @click="playPause" />
         </div>
       </div>
@@ -32,7 +39,9 @@
             :label="$t('configs.select_face_detector')"
           />
         </div>
-        <div class="col">
+      </div>
+      <div class="row q-gutter-md">
+        <div class="col q-ml-none">
           <q-input
             outlined
             v-model="time"
@@ -87,6 +96,57 @@
           />
         </div>
       </div>
+      <div class="row">
+        <div class="col">
+          <div class="text-h5 text-primary">
+            {{ $t("config_group.break_configs") }}
+          </div>
+        </div>
+      </div>
+      <div class="row q-gutter-md">
+        <div class="col q-ml-none">
+          <q-input
+            outlined
+            v-model="timeBetweenBreaks"
+            mask="#:##:##"
+            unmasked-value
+            :hint="$t('configs.full_duration_format')"
+            :label="$t('configs.time_between_breaks')"
+          />
+        </div>
+        <div class="col">
+          <q-input
+            outlined
+            v-model="breakDuration"
+            mask="#:##:##"
+            unmasked-value
+            :hint="$t('configs.full_duration_format')"
+            :label="$t('configs.break_duration')"
+          />
+        </div>
+      </div>
+      <div class="row q-gutter-md">
+        <div class="col q-ml-none">
+          <q-input
+            outlined
+            v-model="timeBetweenChecks"
+            mask="#:##"
+            unmasked-value
+            :hint="$t('configs.compact_duration_format')"
+            :label="$t('configs.time_between_checks')"
+          />
+        </div>
+        <div class="col">
+          <q-input
+            outlined
+            v-model="notifyBefore"
+            mask="#:##"
+            unmasked-value
+            :hint="$t('configs.compact_duration_format')"
+            :label="$t('configs.notify_before')"
+          />
+        </div>
+      </div>
     </div>
   </q-page>
 </template>
@@ -126,6 +186,11 @@ export default {
       scoreThreshold: 0.5,
       time: "-",
       fps: "-",
+
+      timeBetweenBreaks: "",
+      breakDuration: "",
+      timeBetweenChecks: "",
+      notifyBefore: "",
     };
   },
   computed: {
