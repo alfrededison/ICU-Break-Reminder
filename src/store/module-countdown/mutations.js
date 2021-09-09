@@ -1,4 +1,6 @@
 export function setup(state, payload) {
+    state.breakCounter = 0;
+    state.camCheckCounter = 0;
     state.timeBetweenBreaks = payload.timeBetweenBreaks;
     state.breakDuration = payload.breakDuration;
     state.notifyBefore = payload.notifyBefore;

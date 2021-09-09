@@ -166,7 +166,7 @@
             v-model="timeBetweenBreaks"
             mask="#:##:##"
             unmasked-value
-            :hint="$t('configs.full_duration_format')"
+            :hint="$t('configs.duration_format') + ': h:mm:ss'"
             :label="$t('configs.time_between_breaks')"
           />
         </div>
@@ -174,9 +174,9 @@
           <q-input
             outlined
             v-model="breakDuration"
-            mask="#:##:##"
+            mask="##:##"
             unmasked-value
-            :hint="$t('configs.full_duration_format')"
+            :hint="$t('configs.duration_format') + ': mm:ss'"
             :label="$t('configs.break_duration')"
           />
         </div>
@@ -188,7 +188,7 @@
             v-model="timeBetweenChecks"
             mask="#:##"
             unmasked-value
-            :hint="$t('configs.compact_duration_format')"
+            :hint="$t('configs.duration_format') + ': m:ss'"
             :label="$t('configs.time_between_checks')"
           />
         </div>
@@ -198,8 +198,17 @@
             v-model="notifyBefore"
             mask="##"
             unmasked-value
-            :hint="$t('configs.minimal_duration_format')"
+            :hint="$t('configs.duration_format') + ': ss'"
             :label="$t('configs.notify_before')"
+          />
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <q-btn
+            color="primary"
+            :label="$t('configs.save')"
+            @click="saveConfig"
           />
         </div>
       </div>
@@ -211,6 +220,7 @@
 import * as faceapi from "face-api.js";
 import { mapActions, mapGetters, mapMutations, mapState } from "vuex";
 import { convertDurationStringToSeconds } from "src/utils/time";
+import * as Configs from "src/utils/configs";
 
 const SSD_MOBILENETV1 = "ssd_mobilenetv1";
 const TINY_FACE_DETECTOR = "tiny_face_detector";
@@ -247,7 +257,7 @@ export default {
       fps: "-",
 
       timeBetweenBreaks: "02000",
-      breakDuration: "00020",
+      breakDuration: "0020",
       timeBetweenChecks: "100",
       notifyBefore: "10",
     };
@@ -259,6 +269,7 @@ export default {
     ...mapGetters({
       hasSetup: "countdown/hasSetup",
       timeLeftBeforeBreak: "countdown/timeLeftBeforeBreak",
+      timeLeftToEndBreak: "countdown/timeLeftToEndBreak",
       timeLeftBeforeCheck: "countdown/timeLeftBeforeCheck",
       isWorkingPeriod: "countdown/isWorkingPeriod",
       isNotifyPeriod: "countdown/isNotifyPeriod",
@@ -297,11 +308,13 @@ export default {
       }
     },
     nextBreakText() {
-      return (
-        this.$t("countdown.next_break_in") +
-        " " +
-        this.$moment.utc(this.timeLeftBeforeBreak * 1000).format("HH:mm:ss")
-      );
+      return this.isWorkingPeriod
+        ? this.$t("countdown.next_break_in") +
+            " " +
+            this.$moment.utc(this.timeLeftBeforeBreak * 1000).format("HH:mm:ss")
+        : this.$t("countdown.end_break_in") +
+            " " +
+            this.$moment.utc(this.timeLeftToEndBreak * 1000).format("HH:mm:ss");
     },
     nextCamCheckText() {
       return (
@@ -341,19 +354,30 @@ export default {
     ...mapActions({
       tick: "countdown/tick",
     }),
+    saveConfig() {
+      this.setup({
+        timeBetweenBreaks: convertDurationStringToSeconds(
+          this.timeBetweenBreaks
+        ),
+        breakDuration: convertDurationStringToSeconds(this.breakDuration),
+        timeBetweenChecks: convertDurationStringToSeconds(
+          this.timeBetweenChecks
+        ),
+        notifyBefore: convertDurationStringToSeconds(this.notifyBefore),
+      });
+      Configs.save(
+        this.$_.pick(this, [
+          "timeBetweenBreaks",
+          "breakDuration",
+          "timeBetweenChecks",
+          "notifyBefore",
+        ])
+      );
+    },
     mainButtonHandler() {
       switch (true) {
         case !this.hasSetup:
-          this.setup({
-            timeBetweenBreaks: convertDurationStringToSeconds(
-              this.timeBetweenBreaks
-            ),
-            breakDuration: convertDurationStringToSeconds(this.breakDuration),
-            timeBetweenChecks: convertDurationStringToSeconds(
-              this.timeBetweenChecks
-            ),
-            notifyBefore: convertDurationStringToSeconds(this.notifyBefore),
-          });
+          this.saveConfig();
           break;
         case this.working:
           this.break();
@@ -454,6 +478,15 @@ export default {
   mounted() {
     this.selectedFaceDetector = TINY_FACE_DETECTOR;
     this.selectedInputSize = 128;
+
+    const configData = Configs.load();
+    const mountedData = this.$_.pick(configData, [
+      "timeBetweenBreaks",
+      "breakDuration",
+      "timeBetweenChecks",
+      "notifyBefore",
+    ]);
+    this.$_.assign(this, mountedData)
   },
 };
 </script>

@@ -17,10 +17,14 @@ export function isNotifyPeriod(state) {
     return isWorkingPeriod(state) && timeLeftBeforeBreak(state) <= state.notifyBefore
 }
 
+export function timeLeftToEndBreak(state) {
+    return state.breakDuration + timeLeftBeforeBreak(state)
+}
+
 export function isBreakPeriod(state) {
     return hasSetup(state)
         && timeLeftBeforeBreak(state) < 0
-        && timeLeftBeforeBreak(state) + state.breakDuration >= 0
+        && timeLeftToEndBreak(state) >= 0
 }
 
 export function timeLeftBeforeCheck(state) {

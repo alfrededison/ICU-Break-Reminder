@@ -21,14 +21,13 @@
     "play": "Phát Camera",
     "time_between_breaks": "Thời gian giữa các lần nghỉ",
     "break_duration": "Thời gian nghỉ",
-    "full_duration_format": "Định dạng: hh:mm:ss",
-    "compact_duration_format": "Định dạng: m:ss",
-    "minimal_duration_format": "Định dạng: ss",
+    "duration_format": "Định dạng",
     "time_between_checks": "Thời gian giữa các lần kiểm tra",
     "notify_before": "Thông báo trước",
     "init": "Khởi tạo",
     "pause": "Tạm dừng",
-    "resume": "Tiếp tục"
+    "resume": "Tiếp tục",
+    "save": "Lưu"
   },
   "config_group": {
     "camera_configs": "Thiết lập Camera",
@@ -40,6 +39,7 @@
     "breaking": "Đang giải lao",
     "notifying": "Đang nhắc nhở",
     "next_break_in": "Lần nghỉ sắp tới",
-    "next_cam_check_in": "Lần kiểm tra cam sắp tới"
+    "next_cam_check_in": "Lần kiểm tra cam sắp tới",
+    "end_break_in": "Kết thúc nghỉ ngơi sau"
   }
 }
