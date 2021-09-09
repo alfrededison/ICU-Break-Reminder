@@ -224,6 +224,7 @@ export default {
 
       isPlaying: false,
       stream: null,
+      tictoc: false,
 
       selectedFaceDetector: "",
       selectFaceDetectorOptions: [
@@ -315,6 +316,20 @@ export default {
       if (!this.isFaceDetectionModelLoaded()) {
         this.getCurrentFaceDetectionNet().load("/weights").then();
       }
+    },
+    tictoc(val) {
+      if (this.hasSetup) {
+        setTimeout(() => {
+          this.tictoc = !this.tictoc;
+          this.tick();
+        }, 1000);
+      }
+    },
+    hasSetup: {
+      handler(val) {
+        if (val) this.tictoc = true;
+      },
+      immediate: true,
     },
   },
   methods: {
