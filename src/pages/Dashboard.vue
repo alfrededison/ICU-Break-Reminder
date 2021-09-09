@@ -20,6 +20,44 @@
       </div>
       <div class="row">
         <div class="col">
+          <q-btn-group>
+            <q-btn
+              disable
+              glossy
+              no-caps
+              text-color="black"
+              color="yellow"
+              :label="currentStatusText"
+            />
+            <q-btn
+              disable
+              glossy
+              no-caps
+              text-color="black"
+              color="amber"
+              :label="counterStatusText"
+            />
+            <q-btn
+              disable
+              glossy
+              no-caps
+              text-color="black"
+              color="orange"
+              :label="nextBreakText"
+            />
+            <q-btn
+              disable
+              glossy
+              no-caps
+              text-color="black"
+              color="brown-5"
+              :label="nextCamCheckText"
+            />
+          </q-btn-group>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
           <div class="text-h5 text-primary">
             {{ $t("config_group.camera_configs") }}
           </div>
@@ -219,6 +257,11 @@ export default {
     }),
     ...mapGetters({
       hasSetup: "countdown/hasSetup",
+      timeLeftBeforeBreak: "countdown/timeLeftBeforeBreak",
+      timeLeftBeforeCheck: "countdown/timeLeftBeforeCheck",
+      isWorkingPeriod: "countdown/isWorkingPeriod",
+      isNotifyPeriod: "countdown/isNotifyPeriod",
+      isBreakPeriod: "countdown/isBreakPeriod",
     }),
     playPauseLabel() {
       return this.isPlaying ? this.$t("configs.stop") : this.$t("configs.play");
@@ -234,6 +277,37 @@ export default {
         default:
           return "???";
       }
+    },
+    currentStatusText() {
+      return this.working
+        ? this.$t("countdown.working")
+        : this.$t("countdown.breaking");
+    },
+    counterStatusText() {
+      switch (true) {
+        case this.isWorkingPeriod:
+          return this.$t("countdown.working");
+        case this.isBreakPeriod:
+          return this.$t("countdown.breaking");
+        case this.isNotifyPeriod:
+          return this.$t("countdown.notifying");
+        default:
+          return "???";
+      }
+    },
+    nextBreakText() {
+      return (
+        this.$t("countdown.next_break_in") +
+        " " +
+        this.$moment.utc(this.timeLeftBeforeBreak * 1000).format("HH:mm:ss")
+      );
+    },
+    nextCamCheckText() {
+      return (
+        this.$t("countdown.next_cam_check_in") +
+        " " +
+        this.$moment.utc(this.timeLeftBeforeCheck * 1000).format("HH:mm:ss")
+      );
     },
   },
   watch: {

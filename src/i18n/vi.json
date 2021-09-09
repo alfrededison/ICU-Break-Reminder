@@ -34,5 +34,12 @@
     "camera_configs": "Thiết lập Camera",
     "break_configs": "Thiết lập nghỉ ngơi",
     "counter": "Bộ đếm"
+  },
+  "countdown": {
+    "working": "Đang làm việc",
+    "breaking": "Đang giải lao",
+    "notifying": "Đang nhắc nhở",
+    "next_break_in": "Lần nghỉ sắp tới",
+    "next_cam_check_in": "Lần kiểm tra cam sắp tới"
   }
 }

@@ -34,5 +34,12 @@
     "camera_configs": "Camera Configs",
     "break_configs": "Break Configs",
     "counter": "Counter"
+  },
+  "countdown": {
+    "working": "Working",
+    "breaking": "Breaking",
+    "notifying": "Notifying",
+    "next_break_in": "Next Break In",
+    "next_cam_check_in": "Next Cam Check In"
   }
 }
