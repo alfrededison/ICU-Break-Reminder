@@ -279,7 +279,9 @@ export default {
       return this.isPlaying ? this.$t("configs.stop") : this.$t("configs.play");
     },
     mainButtonLabel() {
-      return this.working ? this.$t("camera.face_detected") : this.$t("camera.face_undeteccted");
+      return this.working
+        ? this.$t("camera.face_detected")
+        : this.$t("camera.face_undeteccted");
     },
     currentStatusText() {
       return this.working
@@ -288,12 +290,12 @@ export default {
     },
     counterStatusText() {
       switch (true) {
+        case this.isNotifyPeriod:
+          return this.$t("countdown.notifying");
         case this.isWorkingPeriod:
           return this.$t("countdown.working");
         case this.isBreakPeriod:
           return this.$t("countdown.breaking");
-        case this.isNotifyPeriod:
-          return this.$t("countdown.notifying");
         default:
           return "???";
       }
@@ -466,7 +468,7 @@ export default {
       "timeBetweenChecks",
       "notifyBefore",
     ]);
-    this.$_.assign(this, mountedData)
+    this.$_.assign(this, mountedData);
   },
 };
 </script>

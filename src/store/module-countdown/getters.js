@@ -27,6 +27,11 @@ export function isBreakPeriod(state) {
         && timeLeftToEndBreak(state) > 0
 }
 
+export function isEndOfBreak(state) {
+    return hasSetup(state)
+        && timeLeftToEndBreak(state) == 0
+}
+
 export function timeLeftBeforeCheck(state) {
     return state.timeBetweenChecks - state.camCheckCounter
 }
