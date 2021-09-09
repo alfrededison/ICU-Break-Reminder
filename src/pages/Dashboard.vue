@@ -5,6 +5,22 @@
       <div class="row">
         <div class="col">
           <div class="text-h5 text-primary">
+            {{ $t("config_group.counter") }}
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <q-btn
+            color="secondary"
+            :label="mainButtonLabel"
+            @click="mainButtonHandler"
+          />
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <div class="text-h5 text-primary">
             {{ $t("config_group.camera_configs") }}
           </div>
         </div>
@@ -142,9 +158,9 @@
           <q-input
             outlined
             v-model="notifyBefore"
-            mask="#:##"
+            mask="##"
             unmasked-value
-            :hint="$t('configs.compact_duration_format')"
+            :hint="$t('configs.minimal_duration_format')"
             :label="$t('configs.notify_before')"
           />
         </div>
@@ -155,6 +171,8 @@
 
 <script>
 import * as faceapi from "face-api.js";
+import { mapActions, mapGetters, mapMutations, mapState } from "vuex";
+import { convertDurationStringToSeconds } from "src/utils/time";
 
 const SSD_MOBILENETV1 = "ssd_mobilenetv1";
 const TINY_FACE_DETECTOR = "tiny_face_detector";
@@ -189,25 +207,75 @@ export default {
       time: "-",
       fps: "-",
 
-      timeBetweenBreaks: "",
-      breakDuration: "",
-      timeBetweenChecks: "",
-      notifyBefore: "",
+      timeBetweenBreaks: "02000",
+      breakDuration: "00020",
+      timeBetweenChecks: "100",
+      notifyBefore: "10",
     };
   },
   computed: {
+    ...mapState({
+      working: (state) => state.countdown.working,
+    }),
+    ...mapGetters({
+      hasSetup: "countdown/hasSetup",
+    }),
     playPauseLabel() {
       return this.isPlaying ? this.$t("configs.stop") : this.$t("configs.play");
     },
+    mainButtonLabel() {
+      switch (true) {
+        case !this.hasSetup:
+          return this.$t("configs.init");
+        case this.working:
+          return this.$t("configs.pause");
+        case !this.working:
+          return this.$t("configs.resume");
+        default:
+          return "???";
+      }
+    },
   },
   watch: {
-    selectedFaceDetector: function (val) {
+    selectedFaceDetector(val) {
       if (!this.isFaceDetectionModelLoaded()) {
         this.getCurrentFaceDetectionNet().load("/weights").then();
       }
     },
   },
   methods: {
+    ...mapMutations({
+      work: "countdown/working",
+      break: "countdown/breaking",
+      setup: "countdown/setup",
+    }),
+    ...mapActions({
+      tick: "countdown/tick",
+    }),
+    mainButtonHandler() {
+      switch (true) {
+        case !this.hasSetup:
+          this.setup({
+            timeBetweenBreaks: convertDurationStringToSeconds(
+              this.timeBetweenBreaks
+            ),
+            breakDuration: convertDurationStringToSeconds(this.breakDuration),
+            timeBetweenChecks: convertDurationStringToSeconds(
+              this.timeBetweenChecks
+            ),
+            notifyBefore: convertDurationStringToSeconds(this.notifyBefore),
+          });
+          break;
+        case this.working:
+          this.break();
+          break;
+        case !this.working:
+          this.work();
+          break;
+        default:
+          break;
+      }
+    },
     detectorMode(val) {
       return this.selectedFaceDetector === val;
     },

@@ -24,6 +24,7 @@ module.exports = function (/* ctx */) {
       'quasar-lang-pack',
       'axios',
       'lodash',
+      'moment',
     ],
 
     // https://v1.quasar.dev/quasar-cli/quasar-conf-js#Property%3A-css

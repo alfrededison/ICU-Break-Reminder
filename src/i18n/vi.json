@@ -23,11 +23,16 @@
     "break_duration": "Thời gian nghỉ",
     "full_duration_format": "Định dạng: hh:mm:ss",
     "compact_duration_format": "Định dạng: m:ss",
+    "minimal_duration_format": "Định dạng: ss",
     "time_between_checks": "Thời gian giữa các lần kiểm tra",
-    "notify_before": "Thông báo trước"
+    "notify_before": "Thông báo trước",
+    "init": "Khởi tạo",
+    "pause": "Tạm dừng",
+    "resume": "Tiếp tục"
   },
   "config_group": {
     "camera_configs": "Thiết lập Camera",
-    "break_configs": "Thiết lập nghỉ ngơi"
+    "break_configs": "Thiết lập nghỉ ngơi",
+    "counter": "Bộ đếm"
   }
 }
