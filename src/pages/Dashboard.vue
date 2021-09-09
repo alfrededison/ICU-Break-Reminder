@@ -274,6 +274,7 @@ export default {
       isWorkingPeriod: "countdown/isWorkingPeriod",
       isNotifyPeriod: "countdown/isNotifyPeriod",
       isBreakPeriod: "countdown/isBreakPeriod",
+      isCheckingPoint: "countdown/isCheckingPoint",
     }),
     playPauseLabel() {
       return this.isPlaying ? this.$t("configs.stop") : this.$t("configs.play");
@@ -337,12 +338,20 @@ export default {
       },
       immediate: true,
     },
+    isCheckingPoint(val) {
+      if (val) {
+        setTimeout(() => {
+          this.resetChecking();
+        }, 5000);
+      }
+    }
   },
   methods: {
     ...mapMutations({
       work: "countdown/working",
       break: "countdown/breaking",
       setup: "countdown/setup",
+      resetChecking: "countdown/resetChecking",
     }),
     ...mapActions({
       tick: "countdown/tick",
