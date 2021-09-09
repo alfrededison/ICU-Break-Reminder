@@ -10,11 +10,11 @@ export function timeLeftBeforeBreak(state) {
 }
 
 export function isWorkingPeriod(state) {
-    return hasSetup(state) && timeLeftBeforeBreak(state) >= 0
+    return hasSetup(state) && timeLeftBeforeBreak(state) > 0
 }
 
 export function isNotifyPeriod(state) {
-    return isWorkingPeriod(state) && timeLeftBeforeBreak(state) <= state.notifyBefore
+    return isWorkingPeriod(state) && timeLeftBeforeBreak(state) < state.notifyBefore
 }
 
 export function timeLeftToEndBreak(state) {
@@ -23,8 +23,8 @@ export function timeLeftToEndBreak(state) {
 
 export function isBreakPeriod(state) {
     return hasSetup(state)
-        && timeLeftBeforeBreak(state) < 0
-        && timeLeftToEndBreak(state) >= 0
+        && timeLeftBeforeBreak(state) <= 0
+        && timeLeftToEndBreak(state) > 0
 }
 
 export function timeLeftBeforeCheck(state) {
@@ -33,5 +33,5 @@ export function timeLeftBeforeCheck(state) {
 
 export function isCheckingPoint(state) {
     return hasSetup(state)
-        && timeLeftBeforeCheck(state) < 0
+        && timeLeftBeforeCheck(state) <= 0
 }

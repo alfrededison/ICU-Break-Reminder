@@ -279,16 +279,7 @@ export default {
       return this.isPlaying ? this.$t("configs.stop") : this.$t("configs.play");
     },
     mainButtonLabel() {
-      switch (true) {
-        case !this.hasSetup:
-          return this.$t("configs.init");
-        case this.working:
-          return this.$t("configs.pause");
-        case !this.working:
-          return this.$t("configs.resume");
-        default:
-          return "???";
-      }
+      return this.working ? this.$t("camera.face_detected") : this.$t("camera.face_undeteccted");
     },
     currentStatusText() {
       return this.working
@@ -375,19 +366,8 @@ export default {
       );
     },
     mainButtonHandler() {
-      switch (true) {
-        case !this.hasSetup:
-          this.saveConfig();
-          break;
-        case this.working:
-          this.break();
-          break;
-        case !this.working:
-          this.work();
-          break;
-        default:
-          break;
-      }
+      if (this.working) this.break();
+      else this.work();
     },
     detectorMode(val) {
       return this.selectedFaceDetector === val;

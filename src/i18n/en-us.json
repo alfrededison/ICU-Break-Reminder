@@ -24,9 +24,6 @@
     "time_between_checks": "Time Between Checks",
     "notify_before": "Notify Before",
     "duration_format": "Duration format",
-    "init": "Init",
-    "pause": "Pause",
-    "resume": "Resume",
     "save": "Save"
   },
   "config_group": {
@@ -41,5 +38,9 @@
     "next_break_in": "Next Break In",
     "next_cam_check_in": "Next Cam Check In",
     "end_break_in": "End Break In"
+  },
+  "camera": {
+    "face_detected": "Face Detected",
+    "face_undeteccted": "Face Undeteccted"
   }
 }
