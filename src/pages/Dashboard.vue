@@ -383,7 +383,6 @@ export default {
       handler(val) {
         if (val) this.tictoc = !this.tictoc;
       },
-      immediate: true,
     },
     isCheckingPoint(val) {
       if (val) {
