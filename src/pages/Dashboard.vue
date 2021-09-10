@@ -341,6 +341,13 @@ export default {
         this.getCurrentFaceDetectionNet().load("/weights").then();
       }
     },
+    isPlaying(val) {
+      if (val) {
+        this.displayCamera().then();
+      } else {
+        this.turnOffCamera().then();
+      }
+    },
     tictoc(val) {
       if (this.hasSetup && this.enable) {
         setTimeout(() => {
@@ -363,8 +370,14 @@ export default {
     },
     isCheckingPoint(val) {
       if (val) {
+        this.isPlaying = true;
         setTimeout(() => {
-          this.resetChecking();
+          this.isPlaying = false;
+          if (this.faceDetected) {
+            this.work();
+          } else {
+            this.break();
+          }
         }, 5000);
       }
     },
@@ -404,12 +417,6 @@ export default {
     },
     playPause() {
       this.isPlaying = !this.isPlaying;
-
-      if (this.isPlaying) {
-        this.displayCamera().then();
-      } else {
-        this.turnOffCamera().then();
-      }
     },
     async displayCamera() {
       if (this.stream) {
@@ -474,12 +481,15 @@ export default {
       this.updateTimeStats(Date.now() - ts);
 
       if (result) {
+        this.faceDetected = true;
         const canvas = this.$refs.overlay;
         const dims = faceapi.matchDimensions(canvas, videoEl, false);
         faceapi.draw.drawDetections(
           canvas,
           faceapi.resizeResults(result, dims)
         );
+      } else {
+        this.faceDetected = false;
       }
 
       setTimeout(() => this.onPlay());
