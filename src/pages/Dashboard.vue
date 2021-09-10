@@ -213,11 +213,21 @@
         </div>
       </div>
       <div class="row">
-        <div class="col">
+        <div class="col q-gutter-md">
           <q-btn
             color="primary"
             :label="$t('configs.save')"
             @click="saveConfig"
+          />
+          <q-btn
+            color="warning"
+            :label="$t('configs.reload_configs')"
+            @click="loadConfig"
+          />
+          <q-btn
+            color="negative"
+            :label="$t('configs.load_default')"
+            @click="loadDefault"
           />
         </div>
       </div>
@@ -233,6 +243,13 @@ import * as Configs from "src/utils/configs";
 
 const SSD_MOBILENETV1 = "ssd_mobilenetv1";
 const TINY_FACE_DETECTOR = "tiny_face_detector";
+
+const DEFAULT_CONFIGS = {
+  timeBetweenBreaks: "02000",
+  breakDuration: "0020",
+  timeBetweenChecks: "100",
+  notifyBefore: "10",
+};
 
 export default {
   name: "Dashboard",
@@ -267,10 +284,10 @@ export default {
       time: "-",
       fps: "-",
 
-      timeBetweenBreaks: "02000",
-      breakDuration: "0020",
-      timeBetweenChecks: "100",
-      notifyBefore: "10",
+      timeBetweenBreaks: DEFAULT_CONFIGS.timeBetweenBreaks,
+      breakDuration: DEFAULT_CONFIGS.breakDuration,
+      timeBetweenChecks: DEFAULT_CONFIGS.timeBetweenChecks,
+      notifyBefore: DEFAULT_CONFIGS.notifyBefore,
     };
   },
   computed: {
@@ -392,7 +409,31 @@ export default {
     ...mapActions({
       tick: "countdown/tick",
     }),
+    loadDefault() {
+      this.$_.assign(this, DEFAULT_CONFIGS);
+    },
+    loadConfig() {
+      const configData = Configs.load();
+      const mountedData = this.$_.pick(configData, [
+        "timeBetweenBreaks",
+        "breakDuration",
+        "timeBetweenChecks",
+        "notifyBefore",
+      ]);
+      this.$_.assign(this, mountedData);
+    },
     saveConfig() {
+      Configs.save(
+        this.$_.pick(this, [
+          "timeBetweenBreaks",
+          "breakDuration",
+          "timeBetweenChecks",
+          "notifyBefore",
+        ])
+      );
+      this.setUpCounter();
+    },
+    setUpCounter() {
       this.setup({
         timeBetweenBreaks: convertDurationStringToSeconds(
           this.timeBetweenBreaks
@@ -403,14 +444,6 @@ export default {
         ),
         notifyBefore: convertDurationStringToSeconds(this.notifyBefore),
       });
-      Configs.save(
-        this.$_.pick(this, [
-          "timeBetweenBreaks",
-          "breakDuration",
-          "timeBetweenChecks",
-          "notifyBefore",
-        ])
-      );
     },
     detectorMode(val) {
       return this.selectedFaceDetector === val;
@@ -499,14 +532,8 @@ export default {
     this.selectedFaceDetector = TINY_FACE_DETECTOR;
     this.selectedInputSize = 128;
 
-    const configData = Configs.load();
-    const mountedData = this.$_.pick(configData, [
-      "timeBetweenBreaks",
-      "breakDuration",
-      "timeBetweenChecks",
-      "notifyBefore",
-    ]);
-    this.$_.assign(this, mountedData);
+    this.loadConfig();
+    this.setUpCounter();
   },
 };
 </script>

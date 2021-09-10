@@ -25,7 +25,9 @@
     "notify_before": "Notify Before",
     "duration_format": "Duration format",
     "save": "Save",
-    "camera_status": "Camera Status"
+    "camera_status": "Camera Status",
+    "load_default": "Load Default",
+    "reload_configs": "Reload Configs"
   },
   "config_group": {
     "camera_configs": "Camera Configs",

@@ -25,7 +25,9 @@
     "time_between_checks": "Thời gian giữa các lần kiểm tra",
     "notify_before": "Thông báo trước",
     "save": "Lưu",
-    "camera_status": "Trạng thái Camera"
+    "camera_status": "Trạng thái Camera",
+    "load_default": "Thiết lập mặc định",
+    "reload_configs": "Thiết lập lại"
   },
   "config_group": {
     "camera_configs": "Thiết lập Camera",
