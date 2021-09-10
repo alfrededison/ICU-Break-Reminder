@@ -24,7 +24,8 @@
     "duration_format": "Định dạng",
     "time_between_checks": "Thời gian giữa các lần kiểm tra",
     "notify_before": "Thông báo trước",
-    "save": "Lưu"
+    "save": "Lưu",
+    "camera_status": "Trạng thái Camera"
   },
   "config_group": {
     "camera_configs": "Thiết lập Camera",
@@ -42,5 +43,9 @@
   "camera": {
     "face_detected": "Phát hiện khuôn mặt",
     "face_undeteccted": "Không phát hiện khuôn mặt"
+  },
+  "app": {
+    "disable": "Tắt",
+    "enable": "Bật"
   }
 }

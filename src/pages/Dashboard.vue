@@ -11,10 +11,11 @@
       </div>
       <div class="row">
         <div class="col">
-          <q-btn
+          <q-toggle
             color="secondary"
+            :disabled="!hasSetup"
+            v-model="enable"
             :label="mainButtonLabel"
-            @click="mainButtonHandler"
           />
         </div>
       </div>
@@ -82,6 +83,14 @@
             ></video>
             <canvas ref="overlay" class="overlay" />
           </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <span class="text-body1">{{ $t("configs.camera_status") }}: </span>
+          <q-chip :color="cameraStatusColor" text-color="white">{{
+            cameraStatus
+          }}</q-chip>
         </div>
       </div>
       <div class="row">
@@ -232,8 +241,10 @@ export default {
       SSD_MOBILENETV1: SSD_MOBILENETV1,
       TINY_FACE_DETECTOR: TINY_FACE_DETECTOR,
 
+      enable: true,
       isPlaying: false,
       stream: null,
+      faceDetected: false,
       tictoc: false,
 
       selectedFaceDetector: "",
@@ -279,10 +290,16 @@ export default {
     playPauseLabel() {
       return this.isPlaying ? this.$t("configs.stop") : this.$t("configs.play");
     },
-    mainButtonLabel() {
-      return this.working
+    cameraStatus() {
+      return this.faceDetected
         ? this.$t("camera.face_detected")
         : this.$t("camera.face_undeteccted");
+    },
+    cameraStatusColor() {
+      return this.faceDetected ? "green" : "red";
+    },
+    mainButtonLabel() {
+      return this.enable ? this.$t("app.enable") : this.$t("app.disable");
     },
     currentStatusText() {
       return this.working
@@ -325,7 +342,7 @@ export default {
       }
     },
     tictoc(val) {
-      if (this.hasSetup) {
+      if (this.hasSetup && this.enable) {
         setTimeout(() => {
           this.tictoc = !this.tictoc;
           this.tick();
@@ -334,7 +351,13 @@ export default {
     },
     hasSetup: {
       handler(val) {
-        if (val) this.tictoc = true;
+        if (val) this.tictoc = !this.tictoc;
+      },
+      immediate: true,
+    },
+    enable: {
+      handler(val) {
+        if (val) this.tictoc = !this.tictoc;
       },
       immediate: true,
     },
@@ -344,7 +367,7 @@ export default {
           this.resetChecking();
         }, 5000);
       }
-    }
+    },
   },
   methods: {
     ...mapMutations({
@@ -375,10 +398,6 @@ export default {
           "notifyBefore",
         ])
       );
-    },
-    mainButtonHandler() {
-      if (this.working) this.break();
-      else this.work();
     },
     detectorMode(val) {
       return this.selectedFaceDetector === val;

@@ -24,7 +24,8 @@
     "time_between_checks": "Time Between Checks",
     "notify_before": "Notify Before",
     "duration_format": "Duration format",
-    "save": "Save"
+    "save": "Save",
+    "camera_status": "Camera Status"
   },
   "config_group": {
     "camera_configs": "Camera Configs",
@@ -42,5 +43,9 @@
   "camera": {
     "face_detected": "Face Detected",
     "face_undeteccted": "Face Undeteccted"
+  },
+  "app": {
+    "disable": "Disable",
+    "enable": "Enable"
   }
 }
