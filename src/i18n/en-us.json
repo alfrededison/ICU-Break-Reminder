@@ -1,4 +1,44 @@
 {
+  "app": {
+    "disable": "Disable",
+    "enable": "Enable"
+  },
+  "camera": {
+    "face_detected": "Face Detected",
+    "face_undetected": "Face Undetected"
+  },
+  "config_group": {
+    "break_configs": "Break Configs",
+    "camera_configs": "Camera Configs",
+    "counter": "Counter"
+  },
+  "configs": {
+    "break_duration": "Break Duration",
+    "camera_status": "Camera Status",
+    "duration_format": "Duration format",
+    "estimated_fps": "Estimated FPS",
+    "input_size": "Input Size",
+    "load_default": "Load Default",
+    "min_confidence": "Min Confidence",
+    "notify_before": "Notify Before",
+    "play": "Start Camera",
+    "reload_configs": "Reload Configs",
+    "save": "Save",
+    "score_threshold": "Score Threshold",
+    "select_face_detector": "Select Face Detector",
+    "stop": "Stop Camera",
+    "time": "Time",
+    "time_between_breaks": "Time Between Breaks",
+    "time_between_checks": "Time Between Checks"
+  },
+  "countdown": {
+    "breaking": "Breaking",
+    "end_break_in": "End Break In",
+    "next_break_in": "Next Break In",
+    "next_cam_check_in": "Next Cam Check In",
+    "notifying": "Notifying",
+    "working": "Working"
+  },
   "defaults": {
     "admin": "Administrator"
   },
@@ -9,45 +49,5 @@
     "dashboard": "Dashboard",
     "help": "Help"
   },
-  "title": "ICU Break Reminder",
-  "configs": {
-    "select_face_detector": "Select Face Detector",
-    "time": "Time",
-    "estimated_fps": "Estimated FPS",
-    "min_confidence": "Min Confidence",
-    "input_size": "Input Size",
-    "score_threshold": "Score Threshold",
-    "stop": "Stop Camera",
-    "play": "Start Camera",
-    "time_between_breaks": "Time Between Breaks",
-    "break_duration": "Break Duration",
-    "time_between_checks": "Time Between Checks",
-    "notify_before": "Notify Before",
-    "duration_format": "Duration format",
-    "save": "Save",
-    "camera_status": "Camera Status",
-    "load_default": "Load Default",
-    "reload_configs": "Reload Configs"
-  },
-  "config_group": {
-    "camera_configs": "Camera Configs",
-    "break_configs": "Break Configs",
-    "counter": "Counter"
-  },
-  "countdown": {
-    "working": "Working",
-    "breaking": "Breaking",
-    "notifying": "Notifying",
-    "next_break_in": "Next Break In",
-    "next_cam_check_in": "Next Cam Check In",
-    "end_break_in": "End Break In"
-  },
-  "camera": {
-    "face_detected": "Face Detected",
-    "face_undeteccted": "Face Undeteccted"
-  },
-  "app": {
-    "disable": "Disable",
-    "enable": "Enable"
-  }
+  "title": "ICU Break Reminder"
 }

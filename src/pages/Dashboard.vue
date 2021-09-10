@@ -310,7 +310,7 @@ export default {
     cameraStatus() {
       return this.faceDetected
         ? this.$t("camera.face_detected")
-        : this.$t("camera.face_undeteccted");
+        : this.$t("camera.face_undetected");
     },
     cameraStatusColor() {
       return this.faceDetected ? "green" : "red";
