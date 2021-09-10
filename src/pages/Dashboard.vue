@@ -389,6 +389,7 @@ export default {
         this.isPlaying = true;
         setTimeout(() => {
           this.isPlaying = false;
+          this.resetChecking();
           if (this.faceDetected) {
             this.work();
           } else {
