@@ -7,6 +7,10 @@ export function setup(state, payload) {
     state.timeBetweenChecks = payload.timeBetweenChecks;
 }
 
+export function setEnable(state, value) {
+    state.enable = value;
+}
+
 export function working(state) {
     state.working = true;
 }
