@@ -10,7 +10,8 @@
   "config_group": {
     "break_configs": "Break Configs",
     "camera_configs": "Camera Configs",
-    "counter": "Counter"
+    "counter": "Counter",
+    "sound_configs": "Sound Configs"
   },
   "configs": {
     "break_duration": "Break Duration",
@@ -29,7 +30,9 @@
     "stop": "Stop Camera",
     "time": "Time",
     "time_between_breaks": "Time Between Breaks",
-    "time_between_checks": "Time Between Checks"
+    "time_between_checks": "Time Between Checks",
+    "test_notification": "Test Notification",
+    "test_alarm": "Test Alarm"
   },
   "countdown": {
     "breaking": "Breaking",

@@ -10,7 +10,8 @@
   "config_group": {
     "break_configs": "Thiết lập nghỉ ngơi",
     "camera_configs": "Thiết lập Camera",
-    "counter": "Bộ đếm"
+    "counter": "Bộ đếm",
+    "sound_configs": "Thiết lập Âm thanh"
   },
   "configs": {
     "break_duration": "Thời gian nghỉ",
@@ -29,7 +30,9 @@
     "stop": "Dừng Camera",
     "time": "Thời gian",
     "time_between_breaks": "Thời gian giữa các lần nghỉ",
-    "time_between_checks": "Thời gian giữa các lần kiểm tra"
+    "time_between_checks": "Thời gian giữa các lần kiểm tra",
+    "test_notification": "Thử chuông nhắc nghỉ",
+    "test_alarm": "Thử chuông báo nghỉ"
   },
   "countdown": {
     "breaking": "Đang giải lao",

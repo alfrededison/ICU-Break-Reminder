@@ -4,6 +4,7 @@
     <counter-status />
     <camera-configs />
     <break-configs />
+    <sound-configs />
   </q-page>
 </template>
 
@@ -12,9 +13,10 @@ import { mapActions, mapGetters, mapMutations, mapState } from "vuex";
 import CameraConfigs from "src/components/CameraConfigs.vue";
 import BreakConfigs from "src/components/BreakConfigs.vue";
 import CounterStatus from "src/components/CounterStatus.vue";
+import SoundConfigs from 'src/components/SoundConfigs.vue';
 
 export default {
-  components: { CounterStatus, CameraConfigs, BreakConfigs },
+  components: { CounterStatus, CameraConfigs, BreakConfigs, SoundConfigs },
   name: "Dashboard",
   data() {
     return {
