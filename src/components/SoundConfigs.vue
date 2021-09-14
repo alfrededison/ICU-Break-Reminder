@@ -51,8 +51,8 @@ export default {
     },
   },
   mounted() {
-    this.setNotificationSound("/sounds/notification.wav");
-    this.setAlarmSound("/sounds/alarm.wav");
+    this.setNotificationSound("sounds/notification.wav");
+    this.setAlarmSound("sounds/alarm.wav");
   },
 };
 </script>

@@ -159,7 +159,7 @@ export default {
   watch: {
     selectedFaceDetector(val) {
       if (!this.isFaceDetectionModelLoaded()) {
-        this.getCurrentFaceDetectionNet().load("/weights").then();
+        this.getCurrentFaceDetectionNet().load("weights").then();
       }
     },
     isPlaying(val) {
