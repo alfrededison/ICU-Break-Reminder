@@ -27,11 +27,7 @@
 </template>
 
 <script>
-const playAudio = (file) => {
-  const music = new Audio(file);
-  music.play();
-  return music;
-}
+import { mapMutations, mapActions } from "vuex";
 
 export default {
   name: "SoundConfigs",
@@ -39,12 +35,24 @@ export default {
     return {};
   },
   methods: {
+    ...mapMutations({
+      setNotificationSound: "sounds/setNotificationSound",
+      setAlarmSound: "sounds/setAlarmSound",
+    }),
+    ...mapActions({
+      notify: "sounds/notify",
+      testAlert: "sounds/testAlert",
+    }),
     testAlarm() {
-      playAudio('/sounds/alarm.wav');
+      this.testAlert();
     },
     testNotification() {
-      playAudio('/sounds/notification.wav');
+      this.notify();
     },
+  },
+  mounted() {
+    this.setNotificationSound("/sounds/notification.wav");
+    this.setAlarmSound("/sounds/alarm.wav");
   },
 };
 </script>

@@ -3,6 +3,7 @@ import Vuex from 'vuex';
 
 import camera from './module-camera'
 import countdown from './module-countdown'
+import sounds from './module-sounds';
 
 Vue.use(Vuex);
 
@@ -19,7 +20,8 @@ export default function (/* { ssrContext } */) {
   const Store = new Vuex.Store({
     modules: {
       camera,
-      countdown
+      countdown,
+      sounds,
     },
 
     // enable strict mode (adds overhead!)
