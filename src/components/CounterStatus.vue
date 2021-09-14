@@ -19,7 +19,7 @@
     </div>
     <div class="row">
       <div class="col">
-        <q-btn-group class="q-mb-md">
+        <q-btn-group>
           <q-btn
             disable
             glossy

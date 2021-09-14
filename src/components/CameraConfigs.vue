@@ -1,5 +1,5 @@
 <template>
-  <div class="q-gutter-md">
+  <div class="q-gutter-md q-mt-md">
     <div class="row">
       <div class="col">
         <div class="text-h5 text-primary">
