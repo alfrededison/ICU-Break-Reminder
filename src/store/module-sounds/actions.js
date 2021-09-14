@@ -8,7 +8,7 @@ export const alert = ({state}) => {
 }
 
 export const stopAlert = ({state}) => {
-    state.alarm.stop();
+    state.alarm.pause();
 }
 
 export const testAlert = ({state}) => {

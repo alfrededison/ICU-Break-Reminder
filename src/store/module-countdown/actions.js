@@ -1,4 +1,4 @@
-export function tick({ state, commit, getters }) {
+export function tick({ dispatch, state, commit, getters }) {
     if (!getters.isCheckingPoint) commit('checking');
 
     const isWorking = state.working && getters.isWorkingPeriod;
@@ -8,8 +8,9 @@ export function tick({ state, commit, getters }) {
     const isBackToWork = state.working && getters.isEndOfBreak;
 
     switch (true) {
-        case isWorking:
         case isBreaking:
+            dispatch('sounds/stopAlert', null, { root: true });
+        case isWorking:
             commit('counting');
             break;
         case isBreakingWorkTime:
@@ -17,6 +18,7 @@ export function tick({ state, commit, getters }) {
             commit('resetBreak');
             break;
         case isBreakingBreakTime:
+            dispatch('sounds/alert', null, {root: true});
         default:
             break;
     }

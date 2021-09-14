@@ -31,6 +31,7 @@ export default {
     ...mapGetters({
       hasSetup: "countdown/hasSetup",
       isCheckingPoint: "countdown/isCheckingPoint",
+      isNotifyPeriod: "countdown/isNotifyPeriod",
     }),
   },
   watch: {
@@ -67,6 +68,11 @@ export default {
         }, 5000);
       }
     },
+    isNotifyPeriod(val) {
+      if (val) {
+        this.notify();
+      }
+    }
   },
   methods: {
     ...mapMutations({
@@ -77,6 +83,7 @@ export default {
     }),
     ...mapActions({
       tick: "countdown/tick",
+      notify: "sounds/notify",
     }),
   },
 };
