@@ -1,0 +1,48 @@
+name: Build and Release Apps
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  main:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Export Release Timestamp
+      run: echo "APP_VERSION=v$(date +'%Y.%m.%d')" >> $GITHUB_ENV
+
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Use Node.js
+      uses: actions/setup-node@v2
+      with:
+        cache: 'yarn'
+
+    - name: Install dependencies
+      run: yarn
+
+    - name: Install WinE
+      run: |
+        sudo dpkg --add-architecture i386
+        wget -qO - https://dl.winehq.org/wine-builds/winehq.key | sudo apt-key add -
+        sudo add-apt-repository ppa:cybermax-dexter/sdl2-backport
+        sudo apt-add-repository "deb https://dl.winehq.org/wine-builds/ubuntu $(lsb_release -cs) main"
+        sudo apt install --install-recommends winehq-stable
+
+    - name: Build apps
+      run: npx quasar build -m electron -T all
+
+    - name: Zip package
+      run: |
+        cd dist/electron
+        for i in ICU*/; do zip -r "../${i%/}.zip" "$i"; done
+
+    - name: Release Apps
+      uses: ncipollo/release-action@v1
+      with:
+        tag: ${{ env.APP_VERSION }}
+        name: ${{ env.APP_VERSION }}
+        token: ${{ secrets.GITHUB_TOKEN }}
+        artifacts: 'dist/*.zip'
