@@ -1,3 +1,5 @@
+import { DEFAULT_OPTIONS } from "src/utils/defaults";
+
 export function tick({ dispatch, state, commit, getters }) {
     if (!getters.isCheckingPoint) commit('checking');
 
@@ -18,8 +20,21 @@ export function tick({ dispatch, state, commit, getters }) {
             commit('resetBreak');
             break;
         case isBreakingBreakTime:
-            dispatch('sounds/alert', null, {root: true});
+            dispatch('sounds/alert', null, { root: true });
         default:
             break;
+    }
+}
+
+export function faceDetectedAction({ commit }) {
+    commit('resetFaceMissingCounter');
+    commit('working');
+}
+
+export function faceUndectectedAction({ state, commit, getters }) {
+    if (getters.isWorkingPeriod && state.faceMissingCounter < DEFAULT_OPTIONS.faceMissingResetCount) {
+        commit('increaseFaceMissingCounter');
+    } else {
+        commit('breaking');
     }
 }

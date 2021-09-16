@@ -8,5 +8,6 @@ export default function () {
     breakDuration: 0,
     notifyBefore: 0,
     timeBetweenChecks: 0,
+    faceMissingCounter: 0,
   }
 }

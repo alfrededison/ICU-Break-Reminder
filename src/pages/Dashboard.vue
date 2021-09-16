@@ -13,7 +13,8 @@ import { mapActions, mapGetters, mapMutations, mapState } from "vuex";
 import CameraConfigs from "src/components/CameraConfigs.vue";
 import BreakConfigs from "src/components/BreakConfigs.vue";
 import CounterStatus from "src/components/CounterStatus.vue";
-import SoundConfigs from 'src/components/SoundConfigs.vue';
+import SoundConfigs from "src/components/SoundConfigs.vue";
+import { DEFAULT_OPTIONS } from "src/utils/defaults";
 
 export default {
   components: { CounterStatus, CameraConfigs, BreakConfigs, SoundConfigs },
@@ -61,27 +62,27 @@ export default {
           this.setPlaying(false);
           this.resetChecking();
           if (this.faceDetected) {
-            this.work();
+            this.faceDetectedAction();
           } else {
-            this.break();
+            this.faceUndectectedAction();
           }
-        }, 5000);
+        }, DEFAULT_OPTIONS.cameraCheckTime);
       }
     },
     isNotifyPeriod(val) {
       if (val) {
         this.notify();
       }
-    }
+    },
   },
   methods: {
     ...mapMutations({
       setPlaying: "camera/setPlaying",
-      work: "countdown/working",
-      break: "countdown/breaking",
       resetChecking: "countdown/resetChecking",
     }),
     ...mapActions({
+      faceDetectedAction: "countdown/faceDetectedAction",
+      faceUndectectedAction: "countdown/faceUndectectedAction",
       tick: "countdown/tick",
       notify: "sounds/notify",
     }),

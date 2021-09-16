@@ -34,3 +34,11 @@ export function resetBreak(state) {
 export function resetChecking(state) {
     state.camCheckCounter = 0;
 }
+
+export function resetFaceMissingCounter(state) {
+    state.faceMissingCounter = 0;
+}
+
+export function increaseFaceMissingCounter(state) {
+    state.faceMissingCounter++;
+}

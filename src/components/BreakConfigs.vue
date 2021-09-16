@@ -77,13 +77,7 @@
 import { mapMutations } from "vuex";
 import { convertDurationStringToSeconds } from "src/utils/time";
 import * as Configs from "src/utils/configs";
-
-const DEFAULT_CONFIGS = {
-  timeBetweenBreaks: "02000",
-  breakDuration: "0020",
-  timeBetweenChecks: "100",
-  notifyBefore: "10",
-};
+import { DEFAULT_CONFIGS } from "src/utils/defaults";
 
 export default {
   name: "BreakConfigs",
