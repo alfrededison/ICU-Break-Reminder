@@ -14,6 +14,7 @@
     "sound_configs": "Sound Configs"
   },
   "configs": {
+    "auto_switch_camera": "Auto Switch Camera",
     "break_duration": "Break Duration",
     "camera_status": "Camera Status",
     "duration_format": "Duration format",
@@ -28,11 +29,11 @@
     "score_threshold": "Score Threshold",
     "select_face_detector": "Select Face Detector",
     "stop": "Stop Camera",
+    "test_alarm": "Test Alarm",
+    "test_notification": "Test Notification",
     "time": "Time",
     "time_between_breaks": "Time Between Breaks",
-    "time_between_checks": "Time Between Checks",
-    "test_notification": "Test Notification",
-    "test_alarm": "Test Alarm"
+    "time_between_checks": "Time Between Checks"
   },
   "countdown": {
     "breaking": "Breaking",

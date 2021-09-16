@@ -12,6 +12,23 @@
         <q-btn color="primary" :label="playPauseLabel" @click="playPause" />
       </div>
     </div>
+    <div class="row">
+      <div class="col">
+        <q-toggle
+          color="secondary"
+          v-model="mAutoSwitch"
+          :label="$t('configs.auto_switch_camera')"
+        />
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <span class="text-body1">{{ $t("configs.camera_status") }}: </span>
+        <q-chip :color="cameraStatusColor" text-color="white">
+          {{ cameraStatus }}
+        </q-chip>
+      </div>
+    </div>
     <div :class="{ hidden: !isPlaying, row: true }">
       <div class="col">
         <div class="camera-container">
@@ -26,14 +43,6 @@
           ></video>
           <canvas ref="overlay" class="overlay" />
         </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col">
-        <span class="text-body1">{{ $t("configs.camera_status") }}: </span>
-        <q-chip :color="cameraStatusColor" text-color="white">
-          {{ cameraStatus }}
-        </q-chip>
       </div>
     </div>
     <div class="row">
@@ -110,7 +119,7 @@ const SSD_MOBILENETV1 = "ssd_mobilenetv1";
 const TINY_FACE_DETECTOR = "tiny_face_detector";
 
 export default {
-  name: 'CameraConfigs',
+  name: "CameraConfigs",
   data() {
     return {
       SSD_MOBILENETV1: SSD_MOBILENETV1,
@@ -137,6 +146,8 @@ export default {
       scoreThreshold: 0.5,
       time: "-",
       fps: "-",
+
+      mAutoSwitch: false,
     };
   },
   computed: {
@@ -169,11 +180,15 @@ export default {
         this.turnOffCamera().then();
       }
     },
+    mAutoSwitch(val) {
+      this.setAutoSwitchCamera(val);
+    },
   },
   methods: {
     ...mapMutations({
       setPlaying: "camera/setPlaying",
       setFaceDetected: "camera/setFaceDetected",
+      setAutoSwitchCamera: "camera/setAutoSwitchCamera",
     }),
     detectorMode(val) {
       return this.selectedFaceDetector === val;

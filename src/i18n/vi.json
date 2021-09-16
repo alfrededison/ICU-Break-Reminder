@@ -14,6 +14,7 @@
     "sound_configs": "Thiết lập Âm thanh"
   },
   "configs": {
+    "auto_switch_camera": "Tự động bật camera",
     "break_duration": "Thời gian nghỉ",
     "camera_status": "Trạng thái Camera",
     "duration_format": "Định dạng",
@@ -28,11 +29,11 @@
     "score_threshold": "Ngưỡng điểm",
     "select_face_detector": "Chọn Face Detector",
     "stop": "Dừng Camera",
+    "test_alarm": "Thử chuông báo nghỉ",
+    "test_notification": "Thử chuông nhắc nghỉ",
     "time": "Thời gian",
     "time_between_breaks": "Thời gian giữa các lần nghỉ",
-    "time_between_checks": "Thời gian giữa các lần kiểm tra",
-    "test_notification": "Thử chuông nhắc nghỉ",
-    "test_alarm": "Thử chuông báo nghỉ"
+    "time_between_checks": "Thời gian giữa các lần kiểm tra"
   },
   "countdown": {
     "breaking": "Đang giải lao",

@@ -28,6 +28,7 @@ export default {
     ...mapState({
       enable: (state) => state.countdown.enable,
       faceDetected: (state) => state.camera.faceDetected,
+      autoSwitchCamera: (state) => state.camera.autoSwitchCamera,
     }),
     ...mapGetters({
       hasSetup: "countdown/hasSetup",
@@ -57,9 +58,9 @@ export default {
     },
     isCheckingPoint(val) {
       if (val) {
-        this.setPlaying(true);
+        this.autoSwitchCamera && this.setPlaying(true);
         setTimeout(() => {
-          this.setPlaying(false);
+          this.autoSwitchCamera && this.setPlaying(false);
           this.resetChecking();
           if (this.faceDetected) {
             this.faceDetectedAction();
