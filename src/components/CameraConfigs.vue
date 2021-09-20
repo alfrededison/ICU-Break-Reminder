@@ -27,6 +27,9 @@
         <q-chip :color="cameraStatusColor" text-color="white">
           {{ cameraStatus }}
         </q-chip>
+        <q-chip v-if="humanMissingCounter" color="red" text-color="white">
+          x{{ humanMissingCounter }}
+        </q-chip>
       </div>
     </div>
     <div :class="{ hidden: !isPlaying, row: true }">
@@ -64,6 +67,7 @@ export default {
     ...mapState({
       isPlaying: (state) => state.camera.isPlaying,
       humanDetected: (state) => state.camera.humanDetected,
+      humanMissingCounter: (state) => state.countdown.humanMissingCounter,
     }),
     playPauseLabel() {
       return this.isPlaying ? this.$t("configs.stop") : this.$t("configs.play");
@@ -138,7 +142,7 @@ export default {
   mounted() {
     cocoSsd.load().then((model) => {
       this.modelRef = model;
-    })
+    });
   },
 };
 </script>
