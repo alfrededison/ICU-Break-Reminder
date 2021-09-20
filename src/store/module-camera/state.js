@@ -1,7 +1,7 @@
 export default function () {
   return {
     isPlaying: false,
-    faceDetected: false,
+    humanDetected: false,
     autoSwitchCamera: false,
   }
 }

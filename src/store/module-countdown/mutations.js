@@ -35,10 +35,10 @@ export function resetChecking(state) {
     state.camCheckCounter = 0;
 }
 
-export function resetFaceMissingCounter(state) {
-    state.faceMissingCounter = 0;
+export function resetHumanMissingCounter(state) {
+    state.humanMissingCounter = 0;
 }
 
-export function increaseFaceMissingCounter(state) {
-    state.faceMissingCounter++;
+export function increaseHumanMissingCounter(state) {
+    state.humanMissingCounter++;
 }

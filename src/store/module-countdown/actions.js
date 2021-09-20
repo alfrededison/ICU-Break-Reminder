@@ -26,14 +26,14 @@ export function tick({ dispatch, state, commit, getters }) {
     }
 }
 
-export function faceDetectedAction({ commit }) {
-    commit('resetFaceMissingCounter');
+export function humanDetectedAction({ commit }) {
+    commit('resetHumanMissingCounter');
     commit('working');
 }
 
-export function faceUndectectedAction({ state, commit, getters }) {
-    if (getters.isWorkingPeriod && state.faceMissingCounter < DEFAULT_OPTIONS.faceMissingResetCount) {
-        commit('increaseFaceMissingCounter');
+export function humanUndectectedAction({ state, commit, getters }) {
+    if (getters.isWorkingPeriod && state.humanMissingCounter < DEFAULT_OPTIONS.humanMissingResetCount) {
+        commit('increaseHumanMissingCounter');
     } else {
         commit('breaking');
     }

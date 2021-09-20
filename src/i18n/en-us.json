@@ -4,8 +4,8 @@
     "enable": "Enable"
   },
   "camera": {
-    "face_detected": "Face Detected",
-    "face_undetected": "Face Undetected"
+    "human_detected": "Human detected",
+    "human_undetected": "Human Undetected"
   },
   "config_group": {
     "break_configs": "Break Configs",
@@ -18,20 +18,14 @@
     "break_duration": "Break Duration",
     "camera_status": "Camera Status",
     "duration_format": "Duration format",
-    "estimated_fps": "Estimated FPS",
-    "input_size": "Input Size",
     "load_default": "Load Default",
-    "min_confidence": "Min Confidence",
     "notify_before": "Notify Before",
     "play": "Start Camera",
     "reload_configs": "Reload Configs",
     "save": "Save",
-    "score_threshold": "Score Threshold",
-    "select_face_detector": "Select Face Detector",
     "stop": "Stop Camera",
     "test_alarm": "Test Alarm",
     "test_notification": "Test Notification",
-    "time": "Time",
     "time_between_breaks": "Time Between Breaks",
     "time_between_checks": "Time Between Checks"
   },

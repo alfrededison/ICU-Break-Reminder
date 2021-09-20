@@ -27,7 +27,7 @@ export default {
   computed: {
     ...mapState({
       enable: (state) => state.countdown.enable,
-      faceDetected: (state) => state.camera.faceDetected,
+      humanDetected: (state) => state.camera.humanDetected,
       autoSwitchCamera: (state) => state.camera.autoSwitchCamera,
     }),
     ...mapGetters({
@@ -62,10 +62,10 @@ export default {
         setTimeout(() => {
           this.autoSwitchCamera && this.setPlaying(false);
           this.resetChecking();
-          if (this.faceDetected) {
-            this.faceDetectedAction();
+          if (this.humanDetected) {
+            this.humanDetectedAction();
           } else {
-            this.faceUndectectedAction();
+            this.humanUndectectedAction();
           }
         }, DEFAULT_OPTIONS.cameraCheckTime);
       }
@@ -82,8 +82,8 @@ export default {
       resetChecking: "countdown/resetChecking",
     }),
     ...mapActions({
-      faceDetectedAction: "countdown/faceDetectedAction",
-      faceUndectectedAction: "countdown/faceUndectectedAction",
+      humanDetectedAction: "countdown/humanDetectedAction",
+      humanUndectectedAction: "countdown/humanUndectectedAction",
       tick: "countdown/tick",
       notify: "sounds/notify",
     }),

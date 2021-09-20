@@ -1,5 +1,5 @@
 # ICU (I-See-You) Break Reminder
-A friendly and intuitive reminder that assists in the recovery and prevention of Repetitive Strain Injury (RSI), using face detection to determine when it's the right time for you to take a break and do some stretching exercises.
+A friendly and intuitive reminder that assists in the recovery and prevention of Repetitive Strain Injury (RSI), using human detection to determine when it's the right time for you to take a break and do some stretching exercises.
 
 [![Build and Release Apps](https://github.com/alfrededison/ICU-Break-Reminder/actions/workflows/main.yml/badge.svg)](https://github.com/alfrededison/ICU-Break-Reminder/actions/workflows/main.yml)
 

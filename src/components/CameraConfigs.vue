@@ -63,18 +63,18 @@ export default {
   computed: {
     ...mapState({
       isPlaying: (state) => state.camera.isPlaying,
-      faceDetected: (state) => state.camera.faceDetected,
+      humanDetected: (state) => state.camera.humanDetected,
     }),
     playPauseLabel() {
       return this.isPlaying ? this.$t("configs.stop") : this.$t("configs.play");
     },
     cameraStatus() {
-      return this.faceDetected
-        ? this.$t("camera.face_detected")
-        : this.$t("camera.face_undetected");
+      return this.humanDetected
+        ? this.$t("camera.human_detected")
+        : this.$t("camera.human_undetected");
     },
     cameraStatusColor() {
-      return this.faceDetected ? "green" : "red";
+      return this.humanDetected ? "green" : "red";
     },
   },
   watch: {
@@ -92,7 +92,7 @@ export default {
   methods: {
     ...mapMutations({
       setPlaying: "camera/setPlaying",
-      setFaceDetected: "camera/setFaceDetected",
+      setHumanDetected: "camera/setHumanDetected",
       setAutoSwitchCamera: "camera/setAutoSwitchCamera",
     }),
     playPause() {
@@ -129,7 +129,7 @@ export default {
           }
         }
 
-        this.setFaceDetected(foundPerson);
+        this.setHumanDetected(foundPerson);
       }
 
       requestAnimationFrame(() => this.onPlay());
