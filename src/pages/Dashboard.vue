@@ -33,6 +33,7 @@ export default {
     ...mapGetters({
       hasSetup: "countdown/hasSetup",
       isCheckingPoint: "countdown/isCheckingPoint",
+      isEndOfBreak: "countdown/isEndOfBreak",
       isNotifyPeriod: "countdown/isNotifyPeriod",
     }),
   },
@@ -71,6 +72,11 @@ export default {
       }
     },
     isNotifyPeriod(val) {
+      if (val) {
+        this.notify();
+      }
+    },
+    isEndOfBreak(val) {
       if (val) {
         this.notify();
       }
