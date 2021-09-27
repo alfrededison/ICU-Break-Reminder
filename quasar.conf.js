@@ -203,7 +203,7 @@ module.exports = function (/* ctx */) {
       },
 
       // More info: https://v1.quasar.dev/quasar-cli/developing-electron-apps/node-integration
-      nodeIntegration: false,
+      nodeIntegration: true,
 
       extendWebpack(/* cfg */) {
         // do something with Electron main process Webpack cfg
