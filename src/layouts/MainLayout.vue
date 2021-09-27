@@ -23,7 +23,7 @@
       :width="250"
       show-if-above
     >
-      <q-img class="absolute-top" src="~assets/icon.png" style="border-right: 1px solid #ddd"/>
+      <q-img class="absolute-top" src="logo.png" style="border-right: 1px solid #ddd"/>
       <q-scroll-area style="height: calc(100% - 250px); margin-top: 250px; border-right: 1px solid #ddd">
         <Menu/>
       </q-scroll-area>

@@ -1,4 +1,5 @@
-import { app, BrowserWindow, nativeTheme } from 'electron'
+import { app, BrowserWindow, nativeTheme, Menu, Tray } from 'electron'
+import path from 'path'
 
 try {
   if (process.platform === 'win32' && nativeTheme.shouldUseDarkColors === true) {
@@ -15,6 +16,7 @@ if (process.env.PROD) {
 }
 
 let mainWindow
+let tray
 
 function createWindow () {
   /**
@@ -43,7 +45,28 @@ function createWindow () {
   })
 }
 
-app.on('ready', createWindow)
+function createTray() {
+  tray = new Tray(path.resolve(__statics, 'logo.png'))
+  const contextMenu = Menu.buildFromTemplate([
+    {
+      label: 'Show App', click: function () {
+        mainWindow.show();
+      }
+    },
+    {
+      label: 'Quit', click: function () {
+        app.quit();
+      }
+    }
+  ])
+  tray.setToolTip('ICU Break Reminder')
+  tray.setContextMenu(contextMenu)
+}
+
+app.on('ready', () => {
+  createWindow()
+  createTray()
+})
 
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
