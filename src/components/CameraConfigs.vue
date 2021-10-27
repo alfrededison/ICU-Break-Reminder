@@ -111,8 +111,16 @@ export default {
       const videoEl = this.$refs.inputVideo;
       videoEl.srcObject = null;
     },
+    async loadModel() {
+      const model = await cocoSsd.load();
+      this.modelRef = model;
+    },
     async onPlay() {
       if (!this.isPlaying) return;
+
+      if (!this.modelRef) {
+        await this.loadModel();
+      }
 
       const videoEl = this.$refs.inputVideo;
 
@@ -137,11 +145,6 @@ export default {
       }
       requestAnimationFrame(() => this.onPlay());
     },
-  },
-  mounted() {
-    cocoSsd.load().then((model) => {
-      this.modelRef = model;
-    });
   },
 };
 </script>
