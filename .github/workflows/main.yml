@@ -2,16 +2,14 @@ name: Build and Release Apps
 
 on:
   push:
-    branches: [ main ]
+    tags:
+      - v*
 
 jobs:
   main:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Export Release Timestamp
-      run: echo "APP_VERSION=v$(date +'%Y.%m.%d')" >> $GITHUB_ENV
-
     - name: Checkout repository
       uses: actions/checkout@v2
 
@@ -37,7 +35,5 @@ jobs:
     - name: Release Apps
       uses: ncipollo/release-action@v1
       with:
-        tag: ${{ env.APP_VERSION }}
-        name: ${{ env.APP_VERSION }}
         token: ${{ secrets.GITHUB_TOKEN }}
         artifacts: 'dist/electron/Packaged/*.exe'
