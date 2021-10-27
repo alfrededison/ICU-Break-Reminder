@@ -36,13 +36,15 @@
     "notifying": "Notifying",
     "working": "Working"
   },
-  "defaults": {},
   "drawer": {
     "language": "Language"
   },
   "pages": {
     "dashboard": "Dashboard",
     "help": "Help"
+  },
+  "popup": {
+    "notify": "It's about time to take a break"
   },
   "title": "ICU Break Reminder"
 }

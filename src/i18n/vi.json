@@ -36,13 +36,15 @@
     "notifying": "Đang nhắc nhở",
     "working": "Đang làm việc"
   },
-  "defaults": {},
   "drawer": {
     "language": "Ngôn ngữ"
   },
   "pages": {
     "dashboard": "Màn hình chính",
     "help": "Trợ giúp"
+  },
+  "popup": {
+    "notify": "Sắp đến giờ nghỉ giải lao"
   },
   "title": "ICU Nhắc Nhở"
 }
