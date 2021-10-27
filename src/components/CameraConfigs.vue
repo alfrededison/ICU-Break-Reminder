@@ -43,6 +43,7 @@
 import * as cocoSsd from "@tensorflow-models/coco-ssd";
 import "@tensorflow/tfjs";
 import { mapMutations, mapState } from "vuex";
+import { DEFAULT_OPTIONS } from "src/utils/defaults";
 
 export default {
   name: "CameraConfigs",
@@ -121,7 +122,7 @@ export default {
         this.setHumanDetected(foundPerson);
       }
 
-      requestAnimationFrame(() => this.onPlay());
+      requestAnimationFrame(() => setTimeout(() => this.onPlay(), DEFAULT_OPTIONS.cameraCheckTime));
     },
   },
   mounted() {
