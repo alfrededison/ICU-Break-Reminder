@@ -14,15 +14,6 @@
     </div>
     <div class="row">
       <div class="col">
-        <q-toggle
-          color="secondary"
-          v-model="mAutoSwitch"
-          :label="$t('configs.auto_switch_camera')"
-        />
-      </div>
-    </div>
-    <div class="row">
-      <div class="col">
         <span class="text-body1">{{ $t("configs.camera_status") }}: </span>
         <q-chip :color="cameraStatusColor" text-color="white">
           {{ cameraStatus }}
@@ -59,8 +50,6 @@ export default {
     return {
       stream: null,
       modelRef: null,
-
-      mAutoSwitch: false,
     };
   },
   computed: {
@@ -89,15 +78,11 @@ export default {
         this.turnOffCamera().then();
       }
     },
-    mAutoSwitch(val) {
-      this.setAutoSwitchCamera(val);
-    },
   },
   methods: {
     ...mapMutations({
       setPlaying: "camera/setPlaying",
       setHumanDetected: "camera/setHumanDetected",
-      setAutoSwitchCamera: "camera/setAutoSwitchCamera",
     }),
     playPause() {
       this.setPlaying(!this.isPlaying);

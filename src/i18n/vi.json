@@ -14,7 +14,6 @@
     "sound_configs": "Thiết lập Âm thanh"
   },
   "configs": {
-    "auto_switch_camera": "Tự động bật camera",
     "break_duration": "Thời gian nghỉ",
     "camera_status": "Trạng thái Camera",
     "duration_format": "Định dạng",
@@ -37,9 +36,7 @@
     "notifying": "Đang nhắc nhở",
     "working": "Đang làm việc"
   },
-  "defaults": {
-    "admin": "Quản trị viên"
-  },
+  "defaults": {},
   "drawer": {
     "language": "Ngôn ngữ"
   },

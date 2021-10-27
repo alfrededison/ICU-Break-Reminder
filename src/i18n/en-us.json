@@ -14,7 +14,6 @@
     "sound_configs": "Sound Configs"
   },
   "configs": {
-    "auto_switch_camera": "Auto Switch Camera",
     "break_duration": "Break Duration",
     "camera_status": "Camera Status",
     "duration_format": "Duration format",
@@ -37,9 +36,7 @@
     "notifying": "Notifying",
     "working": "Working"
   },
-  "defaults": {
-    "admin": "Administrator"
-  },
+  "defaults": {},
   "drawer": {
     "language": "Language"
   },
