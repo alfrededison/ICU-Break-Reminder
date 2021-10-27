@@ -9,12 +9,11 @@
 </template>
 
 <script>
-import { mapActions, mapGetters, mapMutations, mapState } from "vuex";
+import { mapActions, mapGetters, mapState } from "vuex";
 import CameraConfigs from "src/components/CameraConfigs.vue";
 import BreakConfigs from "src/components/BreakConfigs.vue";
 import CounterStatus from "src/components/CounterStatus.vue";
 import SoundConfigs from "src/components/SoundConfigs.vue";
-import { DEFAULT_OPTIONS } from "src/utils/defaults";
 
 export default {
   components: { CounterStatus, CameraConfigs, BreakConfigs, SoundConfigs },
@@ -27,11 +26,9 @@ export default {
   computed: {
     ...mapState({
       enable: (state) => state.countdown.enable,
-      humanDetected: (state) => state.camera.humanDetected,
     }),
     ...mapGetters({
       hasSetup: "countdown/hasSetup",
-      isCheckingPoint: "countdown/isCheckingPoint",
       isEndOfBreak: "countdown/isEndOfBreak",
       isNotifyPeriod: "countdown/isNotifyPeriod",
     }),
@@ -56,18 +53,6 @@ export default {
         if (val) this.tictoc = !this.tictoc;
       },
     },
-    isCheckingPoint(val) {
-      if (val) {
-        setTimeout(() => {
-          this.resetChecking();
-          if (this.humanDetected) {
-            this.humanDetectedAction();
-          } else {
-            this.humanUndectectedAction();
-          }
-        }, DEFAULT_OPTIONS.cameraCheckTime);
-      }
-    },
     isNotifyPeriod(val) {
       if (val) {
         this.notify();
@@ -80,12 +65,7 @@ export default {
     },
   },
   methods: {
-    ...mapMutations({
-      resetChecking: "countdown/resetChecking",
-    }),
     ...mapActions({
-      humanDetectedAction: "countdown/humanDetectedAction",
-      humanUndectectedAction: "countdown/humanUndectectedAction",
       tick: "countdown/tick",
       notify: "sounds/notify",
     }),

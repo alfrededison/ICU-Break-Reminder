@@ -6,6 +6,5 @@ export const DEFAULT_CONFIGS = {
 };
 
 export const DEFAULT_OPTIONS = {
-    cameraCheckTime: 3000,
     humanMissingResetCount: 3,
 }

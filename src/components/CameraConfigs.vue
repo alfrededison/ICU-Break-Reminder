@@ -42,8 +42,7 @@
 <script>
 import * as cocoSsd from "@tensorflow-models/coco-ssd";
 import "@tensorflow/tfjs";
-import { mapMutations, mapState } from "vuex";
-import { DEFAULT_OPTIONS } from "src/utils/defaults";
+import { mapActions, mapGetters, mapMutations, mapState } from "vuex";
 
 export default {
   name: "CameraConfigs",
@@ -58,6 +57,9 @@ export default {
       isPlaying: (state) => state.camera.isPlaying,
       humanDetected: (state) => state.camera.humanDetected,
       humanMissingCounter: (state) => state.countdown.humanMissingCounter,
+    }),
+    ...mapGetters({
+      isCheckingPoint: "countdown/isCheckingPoint",
     }),
     playPauseLabel() {
       return this.isPlaying ? this.$t("configs.stop") : this.$t("configs.play");
@@ -82,8 +84,13 @@ export default {
   },
   methods: {
     ...mapMutations({
+      resetChecking: "countdown/resetChecking",
       setPlaying: "camera/setPlaying",
       setHumanDetected: "camera/setHumanDetected",
+    }),
+    ...mapActions({
+      humanDetectedAction: "countdown/humanDetectedAction",
+      humanUndectectedAction: "countdown/humanUndectectedAction",
     }),
     playPause() {
       this.setPlaying(!this.isPlaying);
@@ -109,7 +116,7 @@ export default {
 
       const videoEl = this.$refs.inputVideo;
 
-      if (videoEl && this.modelRef) {
+      if (videoEl && this.modelRef && this.isCheckingPoint) {
         const predictions = await this.modelRef.detect(videoEl);
 
         let foundPerson = false;
@@ -120,9 +127,15 @@ export default {
         }
 
         this.setHumanDetected(foundPerson);
-      }
 
-      requestAnimationFrame(() => setTimeout(() => this.onPlay(), DEFAULT_OPTIONS.cameraCheckTime));
+        if (foundPerson) {
+          this.humanDetectedAction();
+        } else {
+          this.humanUndectectedAction();
+        }
+        this.resetChecking();
+      }
+      requestAnimationFrame(() => this.onPlay());
     },
   },
   mounted() {
