@@ -1,7 +1,7 @@
 export default function () {
   return {
     enable: true,
-    working: true,
+    working: false,
     breakCounter: 0,
     camCheckCounter: 0,
     timeBetweenBreaks: 0,
