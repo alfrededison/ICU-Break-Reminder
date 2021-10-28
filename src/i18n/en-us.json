@@ -39,12 +39,13 @@
   "drawer": {
     "language": "Language"
   },
+  "message": {
+    "lib_loading": "Loading libraries",
+    "notify": "It's about time to take a break"
+  },
   "pages": {
     "dashboard": "Dashboard",
     "help": "Help"
-  },
-  "popup": {
-    "notify": "It's about time to take a break"
   },
   "title": "ICU Break Reminder"
 }

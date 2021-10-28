@@ -112,8 +112,14 @@ export default {
       videoEl.srcObject = null;
     },
     async loadModel() {
+      this.$q.loading.show({
+        message: this.$t('message.lib_loading')
+      });
+
       const model = await cocoSsd.load();
       this.modelRef = model;
+
+      this.$q.loading.hide();
     },
     async onPlay() {
       if (!this.isPlaying) return;

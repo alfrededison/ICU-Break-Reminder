@@ -39,12 +39,13 @@
   "drawer": {
     "language": "Ngôn ngữ"
   },
+  "message": {
+    "lib_loading": "Đang tải thư viện",
+    "notify": "Sắp đến giờ nghỉ giải lao"
+  },
   "pages": {
     "dashboard": "Màn hình chính",
     "help": "Trợ giúp"
-  },
-  "popup": {
-    "notify": "Sắp đến giờ nghỉ giải lao"
   },
   "title": "ICU Nhắc Nhở"
 }
