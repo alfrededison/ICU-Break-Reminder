@@ -56,3 +56,22 @@ app.on('activate', () => {
     createWindow()
   }
 })
+
+const { ipcMain } = require('electron');
+
+ipcMain.on('alert', (event, arg) => {
+  const alertWindows = new BrowserWindow({
+    width: 500,
+    height: 220,
+    center: true,
+    resizable: false,
+    alwaysOnTop: true,
+    autoHideMenuBar: true,
+    minimizable: false,
+    webPreferences: {
+      nodeIntegration: process.env.QUASAR_NODE_INTEGRATION,
+      nodeIntegrationInWorker: process.env.QUASAR_NODE_INTEGRATION,
+    }
+  });
+  alertWindows.loadURL(process.env.APP_URL + arg)
+});

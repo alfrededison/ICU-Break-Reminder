@@ -67,8 +67,22 @@ export default {
   methods: {
     ...mapActions({
       tick: "countdown/tick",
-      notify: "sounds/notify",
+      soundNotify: "sounds/notify",
     }),
+    notify() {
+      if (this.$q.platform.is.electron) {
+        const { ipcRenderer } = require("electron");
+        ipcRenderer.send("alert", "#/popup/notify");
+      } else {
+        window.open(
+          "/#/popup/notify",
+          "_blank",
+          "top=400,left=300,width=500,height=200,frame=false"
+        );
+      }
+
+      this.soundNotify();
+    },
   },
 };
 </script>
