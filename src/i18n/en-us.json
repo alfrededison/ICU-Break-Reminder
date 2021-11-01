@@ -40,8 +40,9 @@
     "language": "Language"
   },
   "message": {
+    "endBreak": "It's end of break. Please get back to work",
     "lib_loading": "Loading libraries",
-    "notify": "It's about time to take a break"
+    "notifyBreak": "It's about time to take a break"
   },
   "pages": {
     "dashboard": "Dashboard",

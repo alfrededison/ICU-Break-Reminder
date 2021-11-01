@@ -14,6 +14,7 @@ import CameraConfigs from "src/components/CameraConfigs.vue";
 import BreakConfigs from "src/components/BreakConfigs.vue";
 import CounterStatus from "src/components/CounterStatus.vue";
 import SoundConfigs from "src/components/SoundConfigs.vue";
+import { NOTIFY_TYPES } from "src/utils/constants";
 
 export default {
   components: { CounterStatus, CameraConfigs, BreakConfigs, SoundConfigs },
@@ -55,12 +56,12 @@ export default {
     },
     isNotifyPeriod(val) {
       if (val) {
-        this.notify();
+        this.notify(NOTIFY_TYPES.NOTIFY_BREAK);
       }
     },
     isEndOfBreak(val) {
       if (val) {
-        this.notify();
+        this.notify(NOTIFY_TYPES.END_BREAK);
       }
     },
   },
@@ -69,13 +70,14 @@ export default {
       tick: "countdown/tick",
       soundNotify: "sounds/notify",
     }),
-    notify() {
+    notify(type) {
+      const url = `#/popup/notify?type=${type}`
       if (this.$q.platform.is.electron) {
         const { ipcRenderer } = require("electron");
-        ipcRenderer.send("alert", "#/popup/notify");
+        ipcRenderer.send("alert", url);
       } else {
         window.open(
-          "/#/popup/notify",
+          "/" + url,
           "_blank",
           "top=400,left=300,width=500,height=200,frame=false"
         );

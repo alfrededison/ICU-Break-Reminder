@@ -40,8 +40,9 @@
     "language": "Ngôn ngữ"
   },
   "message": {
+    "endBreak": "Hết giờ giải lao. Xin mời trở lại công việc",
     "lib_loading": "Đang tải thư viện",
-    "notify": "Sắp đến giờ nghỉ giải lao"
+    "notifyBreak": "Sắp đến giờ nghỉ giải lao"
   },
   "pages": {
     "dashboard": "Màn hình chính",
