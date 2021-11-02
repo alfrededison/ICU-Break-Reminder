@@ -28,7 +28,6 @@
         <video
           width="480"
           height="360"
-          @loadedmetadata="onPlay"
           ref="inputVideo"
           autoplay
           muted
@@ -81,6 +80,37 @@ export default {
         this.turnOffCamera().then();
       }
     },
+    async isCheckingPoint(val) {
+      if (val && this.isPlaying) {
+        const videoEl = this.$refs.inputVideo;
+
+        if (!videoEl) return;
+
+        if (!this.modelRef) {
+          await this.loadModel();
+        }
+
+        if (!this.modelRef) return;
+
+        const predictions = await this.modelRef.detect(videoEl);
+
+        let foundPerson = false;
+        for (let i = 0; i < predictions.length; i++) {
+          if (predictions[i].class === "person") {
+            foundPerson = true;
+          }
+        }
+
+        this.setHumanDetected(foundPerson);
+
+        if (foundPerson) {
+          this.humanDetectedAction();
+        } else {
+          this.humanUndectectedAction();
+        }
+      }
+      this.resetChecking();
+    },
   },
   methods: {
     ...mapMutations({
@@ -113,43 +143,13 @@ export default {
     },
     async loadModel() {
       this.$q.loading.show({
-        message: this.$t('message.lib_loading')
+        message: this.$t("message.lib_loading"),
       });
 
       const model = await cocoSsd.load();
       this.modelRef = model;
 
       this.$q.loading.hide();
-    },
-    async onPlay() {
-      if (!this.isPlaying) return;
-
-      if (!this.modelRef) {
-        await this.loadModel();
-      }
-
-      const videoEl = this.$refs.inputVideo;
-
-      if (videoEl && this.modelRef && this.isCheckingPoint) {
-        const predictions = await this.modelRef.detect(videoEl);
-
-        let foundPerson = false;
-        for (let i = 0; i < predictions.length; i++) {
-          if (predictions[i].class === "person") {
-            foundPerson = true;
-          }
-        }
-
-        this.setHumanDetected(foundPerson);
-
-        if (foundPerson) {
-          this.humanDetectedAction();
-        } else {
-          this.humanUndectectedAction();
-        }
-        this.resetChecking();
-      }
-      requestAnimationFrame(() => this.onPlay());
     },
   },
 };
