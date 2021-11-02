@@ -1,4 +1,4 @@
-import { app, BrowserWindow, nativeTheme, Menu, Tray } from 'electron'
+import { app, ipcMain, BrowserWindow, nativeTheme, Menu, Tray } from 'electron'
 import path from 'path'
 
 try {
@@ -47,25 +47,10 @@ function createWindow() {
 
 function createTray() {
   tray = new Tray(path.resolve(__statics, 'logo.png'))
-  const showApp = function () {
-    mainWindow.show()
-  }
-  const contextMenu = Menu.buildFromTemplate([
-    {
-      label: 'Show App', click: showApp
-    },
-    {
-      type: "separator"
-    },
-    {
-      label: 'Quit', click: function () {
-        app.quit();
-      }
-    }
-  ])
   tray.setToolTip('ICU Break Reminder')
-  tray.setContextMenu(contextMenu)
-  tray.on("click", showApp)
+  tray.on('click', function () {
+    mainWindow.webContents.send('tray-click')
+  })
 }
 
 app.on('ready', () => {
@@ -85,7 +70,35 @@ app.on('activate', () => {
   }
 })
 
-const { ipcMain } = require('electron');
+/** event handling */
+
+ipcMain.on('tray-menu', (event, arg) => {
+  const {
+    showAppMessage,
+    breakMessage,
+    quitMessage,
+  } = arg
+
+  const contextMenu = Menu.buildFromTemplate([
+    {
+      label: showAppMessage,
+      sublabel: breakMessage,
+      click: function () {
+        mainWindow.show()
+      }
+    },
+    {
+      type: 'separator'
+    },
+    {
+      label: quitMessage,
+      click: function () {
+        app.quit();
+      }
+    }
+  ])
+  tray.popUpContextMenu(contextMenu)
+})
 
 ipcMain.on('alert', (event, arg) => {
   const alertWindows = new BrowserWindow({
@@ -100,6 +113,6 @@ ipcMain.on('alert', (event, arg) => {
       nodeIntegration: process.env.QUASAR_NODE_INTEGRATION,
       nodeIntegrationInWorker: process.env.QUASAR_NODE_INTEGRATION,
     }
-  });
+  })
   alertWindows.loadURL(process.env.APP_URL + arg)
-});
+})

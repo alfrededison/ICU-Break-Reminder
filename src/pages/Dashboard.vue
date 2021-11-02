@@ -32,6 +32,9 @@ export default {
       hasSetup: "countdown/hasSetup",
       isEndOfBreak: "countdown/isEndOfBreak",
       isNotifyPeriod: "countdown/isNotifyPeriod",
+      isWorkingPeriod: "countdown/isWorkingPeriod",
+      timeLeftBeforeBreak: "countdown/timeLeftBeforeBreak",
+      timeLeftToEndBreak: "countdown/timeLeftToEndBreak",
     }),
   },
   watch: {
@@ -71,7 +74,7 @@ export default {
       soundNotify: "sounds/notify",
     }),
     notify(type) {
-      const url = `#/popup/notify?type=${type}`
+      const url = `#/popup/notify?type=${type}`;
       if (this.$q.platform.is.electron) {
         const { ipcRenderer } = require("electron");
         ipcRenderer.send("alert", url);
@@ -85,6 +88,28 @@ export default {
 
       this.soundNotify();
     },
+  },
+  mounted() {
+    if (this.$q.platform.is.electron) {
+      const { ipcRenderer } = require("electron");
+      ipcRenderer.on("tray-click", (event, message) => {
+        const showAppMessage = this.$t("menu.show-app");
+        const breakMessage = this.isWorkingPeriod
+          ? this.$t("countdown.next_break_in") +
+            " " +
+            this.$moment.utc(this.timeLeftBeforeBreak * 1000).format("HH:mm:ss")
+          : this.$t("countdown.end_break_in") +
+            " " +
+            this.$moment.utc(this.timeLeftToEndBreak * 1000).format("HH:mm:ss");
+        const quitMessage = this.$t("menu.quit");
+
+        ipcRenderer.send("tray-menu", {
+          showAppMessage,
+          breakMessage,
+          quitMessage,
+        });
+      });
+    }
   },
 };
 </script>

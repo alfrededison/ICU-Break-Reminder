@@ -44,6 +44,10 @@
     "lib_loading": "Loading libraries",
     "notifyBreak": "It's about time to take a break"
   },
+  "menu": {
+    "quit": "Quit",
+    "show-app": "Show app"
+  },
   "pages": {
     "dashboard": "Dashboard",
     "help": "Help"

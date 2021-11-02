@@ -39,6 +39,10 @@
   "drawer": {
     "language": "Ngôn ngữ"
   },
+  "menu": {
+    "quit": "Thoát",
+    "show-app": "Hiện ứng dụng"
+  },
   "message": {
     "endBreak": "Hết giờ giải lao. Xin mời trở lại công việc",
     "lib_loading": "Đang tải thư viện",
