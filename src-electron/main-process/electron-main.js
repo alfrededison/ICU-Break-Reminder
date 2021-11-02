@@ -18,7 +18,7 @@ if (process.env.PROD) {
 let mainWindow
 let tray
 
-function createWindow () {
+function createWindow() {
   /**
    * Initial window options
    */
@@ -47,11 +47,15 @@ function createWindow () {
 
 function createTray() {
   tray = new Tray(path.resolve(__statics, 'logo.png'))
+  const showApp = function () {
+    mainWindow.show()
+  }
   const contextMenu = Menu.buildFromTemplate([
     {
-      label: 'Show App', click: function () {
-        mainWindow.show();
-      }
+      label: 'Show App', click: showApp
+    },
+    {
+      type: "separator"
     },
     {
       label: 'Quit', click: function () {
@@ -61,6 +65,7 @@ function createTray() {
   ])
   tray.setToolTip('ICU Break Reminder')
   tray.setContextMenu(contextMenu)
+  tray.on("click", showApp)
 }
 
 app.on('ready', () => {
