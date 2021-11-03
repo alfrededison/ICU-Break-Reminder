@@ -87,7 +87,11 @@ export default {
         if (!videoEl) return;
 
         if (!this.modelRef) {
-          await this.loadModel();
+          try {
+            await this.loadModel();
+          } catch (_) {
+            // ignore
+          }
         }
 
         if (!this.modelRef) return;
