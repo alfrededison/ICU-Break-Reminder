@@ -25,6 +25,7 @@ function createWindow() {
   mainWindow = new BrowserWindow({
     width: 1000,
     height: 600,
+    minimizable: false,
     useContentSize: true,
     autoHideMenuBar: process.env.PROD,
     webPreferences: {
