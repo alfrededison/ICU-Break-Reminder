@@ -1,29 +1,35 @@
 <template>
-  <div class="q-gutter-md q-mt-md">
-    <div class="row">
-      <div class="col">
-        <div class="text-h5 text-primary">
-          {{ $t("config_group.sound_configs") }}
+  <q-expansion-item
+    :label="$t('config_group.sound_configs')"
+    expand-separator
+    icon="notifications"
+    header-class="text-primary text-body1"
+  >
+    <q-card>
+      <q-card-section>
+        <div class="q-gutter-y-md">
+          <div class="row q-gutter-md">
+            <div class="col">
+              <q-btn
+                color="secondary"
+                class="full-width"
+                :label="$t('configs.test_notification')"
+                @click="testNotification"
+              />
+            </div>
+            <div class="col">
+              <q-btn
+                color="accent"
+                class="full-width"
+                :label="$t('configs.test_alarm')"
+                @click="testAlarm"
+              />
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col">
-        <q-btn
-          color="secondary"
-          :label="$t('configs.test_notification')"
-          @click="testNotification"
-        />
-      </div>
-      <div class="col">
-        <q-btn
-          color="accent"
-          :label="$t('configs.test_alarm')"
-          @click="testAlarm"
-        />
-      </div>
-    </div>
-  </div>
+      </q-card-section>
+    </q-card>
+  </q-expansion-item>
 </template>
 
 <script>

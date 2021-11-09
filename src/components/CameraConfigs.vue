@@ -1,41 +1,47 @@
 <template>
-  <div class="q-gutter-md q-mt-md">
-    <div class="row">
-      <div class="col">
-        <div class="text-h5 text-primary">
-          {{ $t("config_group.camera_configs") }}
+  <q-expansion-item
+    :label="$t('config_group.camera_configs')"
+    :caption="$t('configs.camera_status') + ': ' + playPauseLabel"
+    v-model="mPlayPause"
+    expand-separator
+    icon="videocam"
+    header-class="text-primary text-body1"
+  >
+    <q-card>
+      <q-card-section>
+        <div class="q-gutter-y-md">
+          <q-banner
+            inline-actions
+            class="text-white"
+            :class="cameraStatusColor"
+          >
+            {{ cameraStatus }}
+            <template v-slot:action v-if="humanMissingCounter">
+              <q-btn
+                flat
+                disable
+                color="white"
+                :label="'x ' + humanMissingCounter"
+              />
+            </template>
+          </q-banner>
+          <div :class="{ hidden: !isPlaying, row: true }">
+            <div class="col">
+              <video
+                width="480"
+                height="360"
+                ref="inputVideo"
+                autoplay
+                muted
+                playsinline
+                class="full-width"
+              ></video>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col">
-        <q-btn color="primary" :label="playPauseLabel" @click="playPause" />
-      </div>
-    </div>
-    <div class="row">
-      <div class="col">
-        <span class="text-body1">{{ $t("configs.camera_status") }}: </span>
-        <q-chip :color="cameraStatusColor" text-color="white">
-          {{ cameraStatus }}
-        </q-chip>
-        <q-chip v-if="humanMissingCounter" color="red" text-color="white">
-          x{{ humanMissingCounter }}
-        </q-chip>
-      </div>
-    </div>
-    <div :class="{ hidden: !isPlaying, row: true }">
-      <div class="col">
-        <video
-          width="480"
-          height="360"
-          ref="inputVideo"
-          autoplay
-          muted
-          playsinline
-        ></video>
-      </div>
-    </div>
-  </div>
+      </q-card-section>
+    </q-card>
+  </q-expansion-item>
 </template>
 
 <script>
@@ -49,10 +55,13 @@ export default {
     return {
       stream: null,
       modelRef: null,
+
+      mPlayPause: false,
     };
   },
   computed: {
     ...mapState({
+      enable: (state) => state.countdown.enable,
       isPlaying: (state) => state.camera.isPlaying,
       humanDetected: (state) => state.camera.humanDetected,
       humanMissingCounter: (state) => state.countdown.humanMissingCounter,
@@ -61,7 +70,7 @@ export default {
       isCheckingPoint: "countdown/isCheckingPoint",
     }),
     playPauseLabel() {
-      return this.isPlaying ? this.$t("configs.stop") : this.$t("configs.play");
+      return this.isPlaying ? this.$t("configs.play") : this.$t("configs.stop");
     },
     cameraStatus() {
       return this.humanDetected
@@ -69,10 +78,17 @@ export default {
         : this.$t("camera.human_undetected");
     },
     cameraStatusColor() {
-      return this.humanDetected ? "green" : "red";
+      return this.humanDetected ? "bg-green" : "bg-red";
     },
   },
   watch: {
+    mPlayPause(val) {
+      this.setPlaying(val);
+      if (!val) this.setEnable(val);
+    },
+    enable(val) {
+      if (val) this.mPlayPause = val;
+    },
     isPlaying(val) {
       if (val) {
         this.displayCamera().then();
@@ -124,6 +140,7 @@ export default {
   methods: {
     ...mapMutations({
       resetChecking: "countdown/resetChecking",
+      setEnable: "countdown/setEnable",
       setPlaying: "camera/setPlaying",
       setHumanDetected: "camera/setHumanDetected",
     }),
@@ -131,9 +148,6 @@ export default {
       humanDetectedAction: "countdown/humanDetectedAction",
       humanUndectectedAction: "countdown/humanUndectectedAction",
     }),
-    playPause() {
-      this.setPlaying(!this.isPlaying);
-    },
     async displayCamera() {
       if (this.stream) {
         await this.turnOffCamera();

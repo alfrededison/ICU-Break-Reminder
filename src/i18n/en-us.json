@@ -19,10 +19,10 @@
     "duration_format": "Duration format",
     "load_default": "Load Default",
     "notify_before": "Notify Before",
-    "play": "Start Camera",
+    "play": "Playing",
     "reload_configs": "Reload Configs",
     "save": "Save",
-    "stop": "Stop Camera",
+    "stop": "Stopped",
     "test_alarm": "Test Alarm",
     "test_notification": "Test Notification",
     "time_between_breaks": "Time Between Breaks",
@@ -39,14 +39,14 @@
   "drawer": {
     "language": "Language"
   },
+  "menu": {
+    "quit": "Quit",
+    "show-app": "Show app"
+  },
   "message": {
     "endBreak": "It's end of break. Please get back to work",
     "lib_loading": "Loading libraries",
     "notifyBreak": "It's about time to take a break"
-  },
-  "menu": {
-    "quit": "Quit",
-    "show-app": "Show app"
   },
   "title": "ICU Break Reminder"
 }

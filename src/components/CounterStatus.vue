@@ -1,61 +1,80 @@
 <template>
-  <div class="q-gutter-md">
-    <div class="row">
-      <div class="col">
-        <div class="text-h5 text-primary">
-          {{ $t("config_group.counter") }}
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col">
+  <q-expansion-item
+    :default-opened="true"
+    expand-separator
+    header-class="text-primary text-body1"
+  >
+    <template v-slot:header>
+      <q-item-section avatar>
+        <q-icon name="schedule" />
+      </q-item-section>
+
+      <q-item-section>{{ $t("config_group.counter") }}</q-item-section>
+
+      <q-item-section side>
         <q-toggle
           color="secondary"
           :disabled="!hasSetup"
           v-model="mEnable"
           :label="mainButtonLabel"
         />
-      </div>
-    </div>
-    <div class="row">
-      <div class="col">
-        <q-btn-group>
-          <q-btn
-            disable
-            glossy
-            no-caps
-            text-color="black"
-            color="yellow"
-            :label="currentStatusText"
-          />
-          <q-btn
-            disable
-            glossy
-            no-caps
-            text-color="black"
-            color="amber"
-            :label="counterStatusText"
-          />
-          <q-btn
-            disable
-            glossy
-            no-caps
-            text-color="black"
-            color="orange"
-            :label="nextBreakText"
-          />
-          <q-btn
-            disable
-            glossy
-            no-caps
-            text-color="black"
-            color="brown-5"
-            :label="nextCamCheckText"
-          />
-        </q-btn-group>
-      </div>
-    </div>
-  </div>
+      </q-item-section>
+    </template>
+    <q-card>
+      <q-card-section>
+        <div class="q-gutter-md">
+          <div class="row">
+            <div class="col">
+              <q-btn-group class="full-width">
+                <q-btn
+                  disable
+                  glossy
+                  no-caps
+                  class="full-width"
+                  text-color="black"
+                  color="yellow"
+                  :label="currentStatusText"
+                />
+                <q-btn
+                  disable
+                  glossy
+                  no-caps
+                  class="full-width"
+                  text-color="black"
+                  color="amber"
+                  :label="counterStatusText"
+                />
+              </q-btn-group>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <q-btn-group class="full-width">
+                <q-btn
+                  disable
+                  glossy
+                  no-caps
+                  class="full-width"
+                  text-color="black"
+                  color="orange"
+                  :label="nextBreakText"
+                />
+                <q-btn
+                  disable
+                  glossy
+                  no-caps
+                  class="full-width"
+                  text-color="black"
+                  color="brown-5"
+                  :label="nextCamCheckText"
+                />
+              </q-btn-group>
+            </div>
+          </div>
+        </div>
+      </q-card-section>
+    </q-card>
+  </q-expansion-item>
 </template>
 
 <script>
@@ -65,7 +84,7 @@ export default {
   name: "CounterStatus",
   data() {
     return {
-      mEnable: true,
+      mEnable: false,
     };
   },
   computed: {
@@ -123,6 +142,9 @@ export default {
   watch: {
     mEnable(val) {
       this.setEnable(val);
+    },
+    enable(val) {
+      this.mEnable = val;
     },
   },
   methods: {

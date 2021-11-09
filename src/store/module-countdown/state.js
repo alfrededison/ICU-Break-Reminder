@@ -1,6 +1,6 @@
 export default function () {
   return {
-    enable: true,
+    enable: false,
     working: false,
     breakCounter: 0,
     camCheckCounter: 0,
