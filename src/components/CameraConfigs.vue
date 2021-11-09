@@ -96,7 +96,12 @@ export default {
 
         if (!this.modelRef) return;
 
-        const predictions = await this.modelRef.detect(videoEl);
+        let predictions = [];
+        try {
+          predictions = await this.modelRef.detect(videoEl);
+        } catch (_) {
+          //ignore
+        }
 
         let foundPerson = false;
         for (let i = 0; i < predictions.length; i++) {
