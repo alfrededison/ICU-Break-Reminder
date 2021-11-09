@@ -1,6 +1,5 @@
 <template>
   <q-page class="q-pa-lg">
-    <h5 class="q-mt-none">{{ $t("pages.dashboard") }}</h5>
     <counter-status />
     <camera-configs />
     <break-configs />
@@ -74,7 +73,7 @@ export default {
       soundNotify: "sounds/notify",
     }),
     notify(type) {
-      const url = `#/popup/notify?type=${type}`;
+      const url = `#/notify?type=${type}`;
       if (this.$q.platform.is.electron) {
         const { ipcRenderer } = require("electron");
         ipcRenderer.send("alert", url);

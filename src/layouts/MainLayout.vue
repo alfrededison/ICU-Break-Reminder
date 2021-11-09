@@ -1,62 +1,66 @@
 <template>
-  <q-layout view="lHh Lpr lFf">
-    <q-header>
+  <q-layout view="hHh LpR fFf">
+    <q-header elevated class="bg-primary text-white">
       <q-toolbar>
-        <q-btn
-          aria-label="Menu"
-          dense
-          flat
-          icon="menu"
-          round
-          @click="leftDrawerOpen = !leftDrawerOpen"
+        <q-toolbar-title>
+          <q-avatar>
+            <q-img src="logo.png" />
+          </q-avatar>
+          {{ $t("title") }}
+        </q-toolbar-title>
+        <q-select
+          v-model="lang"
+          :label="$t('drawer.language')"
+          :options="langOptions"
+          label-color="white"
+          color="primary"
+          borderless
+          emit-value
+          map-options
         />
       </q-toolbar>
-      <div class="q-px-md q-mb-md">
-        <div class="text-h3">{{ $t('title') }}</div>
-        <div class="text-subtitle1">{{ this.todayDate }}</div>
-      </div>
     </q-header>
-
-    <q-drawer
-      v-model="leftDrawerOpen"
-      :breakpoint="600"
-      :width="250"
-      show-if-above
-    >
-      <q-img class="absolute-top" src="logo.png" style="border-right: 1px solid #ddd"/>
-      <q-scroll-area style="height: calc(100% - 250px); margin-top: 250px; border-right: 1px solid #ddd">
-        <Menu/>
-      </q-scroll-area>
-    </q-drawer>
 
     <q-page-container>
       <keep-alive>
-        <router-view/>
+        <router-view />
       </keep-alive>
     </q-page-container>
   </q-layout>
 </template>
 
 <script>
-import {date} from 'quasar';
-import Menu from 'components/Menu';
+import languages from "quasar/lang/index.json";
+
+const appLanguages = languages.filter((lang) =>
+  ["en-us", "vi"].includes(lang.isoName)
+);
 
 export default {
-  name: 'HomeLayout',
+  name: "HomeLayout",
   data() {
     return {
-      leftDrawerOpen: false,
+      lang: this.$i18n.locale,
+      langOptions: [],
     };
   },
-  components: {
-    Menu,
+  watch: {
+    lang(lang) {
+      this.$i18n.locale = lang;
+      localStorage.setItem("lang", lang);
+      import(
+        /* webpackInclude: /(en-us|vi)\.js$/ */
+        "quasar/lang/" + lang
+      ).then((lang) => {
+        this.$q.lang.set(lang.default);
+      });
+    },
   },
-  computed: {
-    todayDate() {
-      this.$q.lang; // a hack for force rerender component when quasar lang pack changed
-      let timestamp = Date.now();
-      return date.formatDate(timestamp, 'dddd, D MMMM YYYY');
-    }
+  created() {
+    this.langOptions = appLanguages.map((lang) => ({
+      label: lang.nativeName,
+      value: lang.isoName,
+    }));
   },
 };
 </script>
