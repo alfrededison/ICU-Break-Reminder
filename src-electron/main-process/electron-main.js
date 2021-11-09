@@ -23,10 +23,8 @@ function createWindow() {
    * Initial window options
    */
   mainWindow = new BrowserWindow({
-    width: 1000,
-    height: 600,
-    minimizable: false,
     useContentSize: true,
+    minimizable: false,
     autoHideMenuBar: process.env.PROD,
     webPreferences: {
       // Change from /quasar.conf.js > electron > nodeIntegration;
@@ -104,7 +102,7 @@ ipcMain.on('tray-menu', (event, arg) => {
 ipcMain.on('alert', (event, arg) => {
   const alertWindows = new BrowserWindow({
     width: 500,
-    height: 220,
+    height: 200,
     center: true,
     resizable: false,
     alwaysOnTop: true,
