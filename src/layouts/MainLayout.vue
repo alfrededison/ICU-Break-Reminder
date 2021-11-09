@@ -48,6 +48,9 @@ export default {
     lang(lang) {
       this.$i18n.locale = lang;
       localStorage.setItem("lang", lang);
+
+      this.$moment.locale(lang);
+
       import(
         /* webpackInclude: /(en-us|vi)\.js$/ */
         "quasar/lang/" + lang

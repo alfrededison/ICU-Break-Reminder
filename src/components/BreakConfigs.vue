@@ -1,6 +1,7 @@
 <template>
   <q-expansion-item
     :label="$t('config_group.break_configs')"
+    :caption="summary"
     expand-separator
     icon="timer"
     header-class="text-primary text-body1"
@@ -86,7 +87,10 @@
 
 <script>
 import { mapMutations } from "vuex";
-import { convertDurationStringToSeconds } from "src/utils/time";
+import {
+  convertDurationStringToSeconds,
+  convertSecondsToDuration,
+} from "src/utils/time";
 import * as Configs from "src/utils/configs";
 import { DEFAULT_CONFIGS } from "src/utils/defaults";
 
@@ -99,6 +103,23 @@ export default {
       timeBetweenChecks: DEFAULT_CONFIGS.timeBetweenChecks,
       notifyBefore: DEFAULT_CONFIGS.notifyBefore,
     };
+  },
+  computed: {
+    summary() {
+      return (
+        this.$t("configs.work") +
+        " " +
+        convertSecondsToDuration(
+          convertDurationStringToSeconds(this.timeBetweenBreaks)
+        ) +
+        ", " +
+        this.$t("configs.break") +
+        " " +
+        convertSecondsToDuration(
+          convertDurationStringToSeconds(this.breakDuration)
+        )
+      );
+    },
   },
   methods: {
     ...mapMutations({

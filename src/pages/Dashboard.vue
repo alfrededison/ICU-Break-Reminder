@@ -14,6 +14,7 @@ import BreakConfigs from "src/components/BreakConfigs.vue";
 import CounterStatus from "src/components/CounterStatus.vue";
 import SoundConfigs from "src/components/SoundConfigs.vue";
 import { NOTIFY_TYPES } from "src/utils/constants";
+import { convertSecondsToTimeDigital } from "src/utils/time";
 
 export default {
   components: { CounterStatus, CameraConfigs, BreakConfigs, SoundConfigs },
@@ -96,10 +97,10 @@ export default {
         const breakMessage = this.isWorkingPeriod
           ? this.$t("countdown.next_break_in") +
             " " +
-            this.$moment.utc(this.timeLeftBeforeBreak * 1000).format("HH:mm:ss")
+            convertSecondsToTimeDigital(this.timeLeftBeforeBreak)
           : this.$t("countdown.end_break_in") +
             " " +
-            this.$moment.utc(this.timeLeftToEndBreak * 1000).format("HH:mm:ss");
+            convertSecondsToTimeDigital(this.timeLeftToEndBreak);
         const quitMessage = this.$t("menu.quit");
 
         ipcRenderer.send("tray-menu", {

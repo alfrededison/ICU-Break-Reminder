@@ -14,6 +14,7 @@
     "sound_configs": "Thiết lập Âm thanh"
   },
   "configs": {
+    "break": "Nghỉ ngơi",
     "break_duration": "Thời gian nghỉ",
     "camera_status": "Trạng thái Camera",
     "duration_format": "Định dạng",
@@ -26,7 +27,8 @@
     "test_alarm": "Thử chuông báo nghỉ",
     "test_notification": "Thử chuông nhắc nghỉ",
     "time_between_breaks": "Thời gian giữa các lần nghỉ",
-    "time_between_checks": "Thời gian giữa các lần kiểm tra"
+    "time_between_checks": "Thời gian giữa các lần kiểm tra",
+    "work": "Làm việc"
   },
   "countdown": {
     "breaking": "Đang giải lao",

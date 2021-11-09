@@ -78,6 +78,7 @@
 </template>
 
 <script>
+import { convertSecondsToTimeDigital } from "src/utils/time";
 import { mapGetters, mapMutations, mapState } from "vuex";
 
 export default {
@@ -126,16 +127,16 @@ export default {
       return this.isWorkingPeriod
         ? this.$t("countdown.next_break_in") +
             " " +
-            this.$moment.utc(this.timeLeftBeforeBreak * 1000).format("HH:mm:ss")
+            convertSecondsToTimeDigital(this.timeLeftBeforeBreak)
         : this.$t("countdown.end_break_in") +
             " " +
-            this.$moment.utc(this.timeLeftToEndBreak * 1000).format("HH:mm:ss");
+            convertSecondsToTimeDigital(this.timeLeftToEndBreak);
     },
     nextCamCheckText() {
       return (
         this.$t("countdown.next_cam_check_in") +
         " " +
-        this.$moment.utc(this.timeLeftBeforeCheck * 1000).format("HH:mm:ss")
+        convertSecondsToTimeDigital(this.timeLeftBeforeCheck)
       );
     },
   },

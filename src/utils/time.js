@@ -1,3 +1,5 @@
+import moment from "moment";
+
 const getLastTimeDigitFromString = (str) => {
     if (str.length >= 2) {
         const time = Number.parseInt(str.substr(-2, 2));
@@ -25,3 +27,7 @@ export const convertDurationStringToSeconds = (duration) => {
     time += results.time * 3600;  //hours
     return time;
 }
+
+export const convertSecondsToTimeDigital = (seconds) => moment.utc(seconds * 1000).format("HH:mm:ss")
+
+export const convertSecondsToDuration = (seconds) => moment.duration(seconds, 'seconds').humanize()

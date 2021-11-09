@@ -7,13 +7,11 @@ export default async ({ ssrContext }) => {
   const langIso = userLocale || defaultLocale;
 
   try {
-    await import(
+    const lang = await import(
       /* webpackInclude: /(en-us|vi)\.js$/ */
-    'quasar/lang/' + langIso
-      )
-      .then(lang => {
-        Quasar.lang.set(lang.default);
-      });
+      'quasar/lang/' + langIso
+    )
+    Quasar.lang.set(lang.default);
   } catch (err) {
     // Requested Quasar Language Pack does not exist,
     // let's not break the app, so catching error

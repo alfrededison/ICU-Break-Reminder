@@ -14,6 +14,7 @@
     "sound_configs": "Sound Configs"
   },
   "configs": {
+    "break": "Break for",
     "break_duration": "Break Duration",
     "camera_status": "Camera Status",
     "duration_format": "Duration format",
@@ -26,7 +27,8 @@
     "test_alarm": "Test Alarm",
     "test_notification": "Test Notification",
     "time_between_breaks": "Time Between Breaks",
-    "time_between_checks": "Time Between Checks"
+    "time_between_checks": "Time Between Checks",
+    "work": "Work for"
   },
   "countdown": {
     "breaking": "Breaking",
