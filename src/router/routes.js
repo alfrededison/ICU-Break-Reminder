@@ -4,7 +4,6 @@ const routes = [
     component: () => import('layouts/MainLayout'),
     children: [
       { path: '', name: 'home', component: () => import('pages/Dashboard') },
-      { path: 'help', name: 'help', component: () => import('pages/Help') }
     ]
   },
   {
